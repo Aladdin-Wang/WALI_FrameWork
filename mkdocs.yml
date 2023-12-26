@@ -1,16 +1,30 @@
-site_name: Basic MkDocs Example Project
+site_name: My Documentation
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - Quick Start: quick-start.md
+  - Configuration: configuration.md
+  - Features:
+    - Feature 1: feature-1.md
+    - Feature 2: feature-2.md
+  - Contact: contact.md
+
 theme:
   name: readthedocs
   highlightjs: true
+
 plugins:
   - search
   - mkdocstrings:
       handlers:
-        # See: https://mkdocstrings.github.io/python/usage/
         python:
           options:
             docstring_style: sphinx
+
 markdown_extensions:
   - markdown_include.include:
       base_path: .
-  - admonition
+
+extra_css:
+  - custom.css
