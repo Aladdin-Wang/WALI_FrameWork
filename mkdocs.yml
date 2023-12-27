@@ -26,11 +26,3 @@ theme:
 
 extra_css:
   - css/custom.css
-
-markdown_extensions:
-  - admonition
-  - codehilite:
-      guess_lang: false
-  - pymdownx.tasklist
-  - pymdownx.superfences
-
