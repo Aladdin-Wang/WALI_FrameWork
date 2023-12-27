@@ -1,9 +1,8 @@
 [build-system]
-requires = ["setuptools", "wheel", "Cython"]
-build-backend = "setuptools.build_meta"
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
 
 [project]
-name = "kk"
-authors = [{name = "kk"}]
+name = "lumache"
+authors = [{name = "Graziella", email = "graziella@lumache"}]
 dynamic = ["version", "description"]
-description = "Your project description here"
