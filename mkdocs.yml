@@ -19,7 +19,6 @@ nav:
   - About:  # 关于
     - Overview: about.md  # 概述
     - Team: team.md  # 团队
-  - Signals and Slots: signals_slots/C语言模拟QT的信号与槽功能.md  # 信号与槽功能
 
 # 主题配置
 theme:
