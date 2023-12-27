@@ -1,7 +1,8 @@
 # 站点信息
-site_name: WALI_FrameWork  # 文档站点名称
+site_name: My Documentation  # 文档站点名称
 site_description: A sample documentation site  # 文档站点描述
-site_author: kk  # 文档作者
+site_author: Your Name  # 文档作者
+site_url: https://your-docs-url.com  # 文档站点 URL
 
 # 导航栏
 nav:
@@ -18,10 +19,8 @@ nav:
   - About:  # 关于
     - Overview: about.md  # 概述
     - Team: team.md  # 团队
-  - signals_slots:  # 信号槽
-    - Overview: signals_slots/C语言模拟QT的信号与槽功能.md
-  
-  
+  - Signals and Slots: signals_slots/C语言模拟QT的信号与槽功能.md  # 信号与槽功能
+
 # 主题配置
 theme:
   name: readthedocs  # 使用 readthedocs 主题
