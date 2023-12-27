@@ -27,11 +27,6 @@ theme:
 extra_css:
   - css/custom.css
 
-plugins:
-  - search
-  - toc:
-      permalink: true
-
 markdown_extensions:
   - admonition
   - codehilite:
