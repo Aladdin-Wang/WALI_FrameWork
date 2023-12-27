@@ -1,8 +1,0 @@
-[build-system]
-requires = ["setuptools", "wheel", "Cython"]
-build-backend = "setuptools.build_meta"
-
-[project]
-name = "kk"
-authors = [{name = "kk"}]
-dynamic = ["version", "description"]
