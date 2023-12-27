@@ -1,0 +1,29 @@
+/* custom.css */
+
+/* Add your custom styles here */
+
+/* Example: Change the font family */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Example: Style the navigation bar */
+nav {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Example: Style the headings */
+h1 {
+    color: #008080; /* Teal color */
+}
+
+/* Example: Add a border to code blocks */
+pre {
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+}
+
+/* Add more styles as needed */

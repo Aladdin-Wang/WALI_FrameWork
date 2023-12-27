@@ -1,1 +1,41 @@
-site_name: My Docs
+site_name: My Documentation
+site_description: A sample documentation site
+site_author: Your Name
+site_url: https://your-docs-url.com
+
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Installation: installation.md
+    - Quick Start: quick-start.md
+  - User Guide:
+    - Configuration: config.md
+    - Usage: usage.md
+  - API Reference:
+    - Module A: api/module_a.md
+    - Module B: api/module_b.md
+  - About:
+    - Overview: about.md
+    - Team: team.md
+
+theme:
+  name: readthedocs
+  logo: img/logo.png
+  favicon: img/favicon.ico
+  show_powered_by: false
+
+extra_css:
+  - css/custom.css
+
+plugins:
+  - search
+  - toc:
+      permalink: true
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - pymdownx.tasklist
+  - pymdownx.superfences
+
