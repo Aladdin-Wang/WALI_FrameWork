@@ -377,7 +377,7 @@ emit宏的括号内需要指定信号名称，信号所在的对象地址，和�
 ```
 ###  5. 连接信号与槽
 与QT一样一个信号可以连接多个信号或者槽，但是QT支持五种连接属性，目前仅实现了其中的Qt::DirectConnection属性，也就是同步调用方式，异步方式正在持续完善中。
-![](..\img\signals_slots_Connection.png)
+![](../img/signals_slots.png)
 
 ```c
 #define connect(__SIG_OBJ,__SIG_NAME,__SLOT_OBJ,__SLOT_FUN)    \
