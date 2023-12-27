@@ -1,28 +1,34 @@
-site_name: My Documentation
-site_description: A sample documentation site
-site_author: Your Name
-site_url: https://your-docs-url.com
+# 站点信息
+site_name: WALI_FrameWork  # 文档站点名称
+site_description: A sample documentation site  # 文档站点描述
+site_author: kk  # 文档作者
 
+# 导航栏
 nav:
-  - Home: index.md
-  - Getting Started:
-    - Installation: installation.md
-    - Quick Start: quick-start.md
-  - User Guide:
-    - Configuration: config.md
-    - Usage: usage.md
-  - API Reference:
-    - Module A: api/module_a.md
-    - Module B: api/module_b.md
-  - About:
-    - Overview: about.md
-    - Team: team.md
-
+  - Home: index.md  # 首页
+  - Getting Started:  # 入门指南
+    - Installation: installation.md  # 安装指南
+    - Quick Start: quick-start.md  # 快速入门
+  - User Guide:  # 用户指南
+    - Configuration: config.md  # 配置
+    - Usage: usage.md  # 使用方法
+  - API Reference:  # API 参考
+    - Module A: api/module_a.md  # 模块 A
+    - Module B: api/module_b.md  # 模块 B
+  - About:  # 关于
+    - Overview: about.md  # 概述
+    - Team: team.md  # 团队
+  - signals_slots:  # 信号槽
+    - Overview: signals_slots/C语言模拟QT的信号与槽功能.md
+  
+  
+# 主题配置
 theme:
-  name: readthedocs
-  logo: img/logo.png
-  favicon: img/favicon.ico
-  show_powered_by: false
+  name: readthedocs  # 使用 readthedocs 主题
+  logo: img/logo.png  # 站点 Logo
+  favicon: img/favicon.ico  # 站点图标
+  show_powered_by: false  # 隐藏 Powered by Read the Docs 标志
 
+# 额外的 CSS 样式
 extra_css:
-  - css/custom.css
+  - css/custom.css  # 自定义 CSS 样式文件
