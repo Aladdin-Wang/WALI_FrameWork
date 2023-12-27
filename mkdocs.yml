@@ -18,8 +18,8 @@ nav:
   - About:
     - Overview: about/about.md
     - Team: about/team.md
-  - signals_slots:
-    - Overview: signals_slots/C语言模拟QT的信号与槽功能.md
+  - signals_slots: signals_slots/C语言模拟QT的信号与槽功能.md
+
 # 主题配置
 theme:
   name: readthedocs  # 使用 readthedocs 主题

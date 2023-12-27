@@ -1,4 +1,4 @@
-﻿# The Team
+﻿# C语言模拟QT的信号与槽功能
 
 ---
 
@@ -16,8 +16,6 @@
 这样的好处就是对于使用者而言不必去关心函数指针回调函数这些对于初学者比较不太容易搞清晰的东西，简化了使用者的操作。当然就像我们在享受幸福生活的时候，就一定有人在我们背后默默付出砥砺前行！这里也一样，对于我们使用者简化了操作，那为了实现这样的效果就需要在后台提供更多的支持。
 
 QT Creator官方帮助文档对信号槽使用方法做了详细的介绍，接下来我们就依照官方的使用方法，依葫芦画瓢，用C语言的宏模拟出山寨版的信号和槽。
-
-![在这里插入图片描述](https://img-blog.csdnimg.cn/0c3445ca3a8540c18a22600c025a282b.png)
 
 ## 二、简化后的实现步骤
 ## 1. 定义一些必要的宏
@@ -340,12 +338,10 @@ void auto_disconnect(sig_slot_t *ptSenderObj, const char *ptSender)
 
 
 ```
-代码下载地址：
-github：[https://github.com/Aladdin-Wang/signals_slots](https://github.com/Aladdin-Wang/signals_slots)
 ## 四、使用方法与QT中的区别
 ##  1. SIG_SLOT_OBJ取代QObject
  SIG_SLOT_OBJ取代QObject，且只需要在信号所在的类中定义。
- 
+
 ###  2. 定义信号不同
 QT在类里面声明信号，signals宏是在结构体外声明信号，并且要指定信号名称，信号所在的对象地址，和一些自定义的参数：
 ```c
@@ -381,7 +377,7 @@ emit宏的括号内需要指定信号名称，信号所在的对象地址，和�
 ```
 ###  5. 连接信号与槽
 与QT一样一个信号可以连接多个信号或者槽，但是QT支持五种连接属性，目前仅实现了其中的Qt::DirectConnection属性，也就是同步调用方式，异步方式正在持续完善中。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/88b895d3e5d5491889990214adc6a387.png)
+![](../img/signals_slots_Connection.png)
 
 ```c
 #define connect(__SIG_OBJ,__SIG_NAME,__SLOT_OBJ,__SLOT_FUN)    \
