@@ -6,3 +6,4 @@ build-backend = "setuptools.build_meta"
 name = "kk"
 authors = [{name = "kk"}]
 dynamic = ["version", "description"]
+description = "Your project description here"
