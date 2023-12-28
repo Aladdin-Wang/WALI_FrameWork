@@ -14,12 +14,12 @@ nav:
   - 重点基础知识: 
     - 变参函数和可变参数宏: config.md  # 配置
     - 线程安全和函数可重入: usage.md  # 使用方法   
-    - 异步与同步:   
-    - 状态机: 
+    - 异步与同步: usage.md  # 使用方法     
+    - 状态机: usage.md  # 使用方法   
   - 信号槽: signals_slots/C语言模拟QT的信号与槽功能.md
-  - 发布订阅:
-  - msgmap:
-  - shell:
+  - 发布订阅: signals_slots/C语言模拟QT的信号与槽功能.md
+  - msgmap: signals_slots/C语言模拟QT的信号与槽功能.md
+  - shell: signals_slots/C语言模拟QT的信号与槽功能.md
   - About:
     - Overview: about/about.md
     - Team: about/team.md
