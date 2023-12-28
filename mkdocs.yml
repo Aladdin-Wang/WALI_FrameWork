@@ -6,6 +6,8 @@ site_author: kk # 文档作者
 # 导航栏
 nav:
   - Home: index.md
+  - 入门指南:
+    - 安装指南: installation.md
     - 快速上手: quick-start.md
   - 用户指南:
     - 配置: config.md
