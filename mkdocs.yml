@@ -16,10 +16,11 @@ nav:
     - 线程安全和函数可重入: usage.md  # 使用方法   
     - 异步与同步: usage.md  # 使用方法     
     - 状态机: usage.md  # 使用方法   
-  - 信号槽: signals_slots/C语言模拟QT的信号与槽功能.md
-  - 发布订阅: signals_slots/C语言模拟QT的信号与槽功能.md
-  - msgmap: signals_slots/C语言模拟QT的信号与槽功能.md
-  - shell: signals_slots/C语言模拟QT的信号与槽功能.md
+  - 模块:     
+    - 信号槽: signals_slots/C语言模拟QT的信号与槽功能.md
+    - 发布订阅: subscribe_publish/subscribe_publish.md
+    - msgmap: msgmap/msgmap.md
+    - shell: shell/shell.md
   - About:
     - Overview: about/about.md
     - Team: about/team.md
