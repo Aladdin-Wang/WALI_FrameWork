@@ -7,18 +7,23 @@ site_author: kk # 文档作者
 nav:
   - Home: index.md  # 首页
   - Getting Started:  # 入门指南
-    - Installation: installation.md  # 安装指南
-    - Quick Start: quick-start.md  # 快速入门
-  - User Guide:  # 用户指南
-    - Configuration: config.md  # 配置
-    - Usage: usage.md  # 使用方法
-  - API Reference:  # API 参考
-    - Module A: api/module_a.md  # 模块 A
-    - Module B: api/module_b.md  # 模块 B
+    - 快速上手: quick-start.md  # 快速入门
+  - 用户指南:  # 用户指南
+    - 配置: config.md  # 配置
+    - 使用方法: usage.md  # 使用方法
+  - 重点基础知识: 
+    - 变参函数和可变参数宏: config.md  # 配置
+    - 线程安全和函数可重入: usage.md  # 使用方法   
+    - 异步与同步:   
+    - 状态机: 
+  - 信号槽: signals_slots/C语言模拟QT的信号与槽功能.md
+  - 发布订阅:
+  - msgmap:
+  - shell:
   - About:
     - Overview: about/about.md
     - Team: about/team.md
-  - signals_slots: signals_slots/C语言模拟QT的信号与槽功能.md
+
 
 # 主题配置
 theme:
