@@ -10,7 +10,7 @@ nav:
   - 用户指南:
     - 配置: config.md
     - 使用方法: usage.md
-  - 重点基础知识: 
+  - 基础知识: 
     - 变参函数和可变参数宏: basic_knowledge/变参函数和可变参数宏.md
     - 线程安全和函数可重入: basic_knowledge/线程安全和函数可重入.md
     - 异步与同步: basic_knowledge/异步与同步.md
@@ -20,6 +20,7 @@ nav:
     - 发布订阅: subscribe_publish/subscribe_publish.md
     - msgmap: msgmap/msgmap.md
     - shell: shell/shell.md
+    - ymodem: ymodem/ymodem.md
   - About:
     - Overview: about/about.md
     - Team: about/team.md
