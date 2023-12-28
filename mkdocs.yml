@@ -5,18 +5,17 @@ site_author: kk # 文档作者
 
 # 导航栏
 nav:
-  - Home: index.md  # 首页
-  - Getting Started:  # 入门指南
-    - 快速上手: quick-start.md  # 快速入门
-  - 用户指南:  # 用户指南
-    - 配置: config.md  # 配置
-    - 使用方法: usage.md  # 使用方法
+  - Home: index.md
+    - 快速上手: quick-start.md
+  - 用户指南:
+    - 配置: config.md
+    - 使用方法: usage.md
   - 重点基础知识: 
-    - 变参函数和可变参数宏: config.md  # 配置
-    - 线程安全和函数可重入: usage.md  # 使用方法   
-    - 异步与同步: usage.md  # 使用方法     
-    - 状态机: usage.md  # 使用方法   
-  - 模块:     
+    - 变参函数和可变参数宏: basic_knowledge/变参函数和可变参数宏.md
+    - 线程安全和函数可重入: basic_knowledge/线程安全和函数可重入.md
+    - 异步与同步: basic_knowledge/异步与同步.md
+    - 状态机: basic_knowledge/状态机.md
+  - 模块:
     - 信号槽: signals_slots/C语言模拟QT的信号与槽功能.md
     - 发布订阅: subscribe_publish/subscribe_publish.md
     - msgmap: msgmap/msgmap.md
@@ -24,7 +23,6 @@ nav:
   - About:
     - Overview: about/about.md
     - Team: about/team.md
-
 
 # 主题配置
 theme:
