@@ -23,6 +23,9 @@ nav:
     - msgmap: msgmap/msgmap.md
     - shell: shell/shell.md
     - ymodem: ymodem/ymodem.md
+  - 第三方库:
+    - ARM-2D: ARM-2D/ARM-2D.md
+    - CherryUSB: CherryUSB/CherryUSB.md    
   - About:
     - Overview: about/about.md
     - Team: about/team.md
