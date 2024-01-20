@@ -43,7 +43,7 @@
 #define fsm(__NAME) fsm_##__NAME##_t
 
 #define __simple_fsm(__FSM_TYPE, ...)                                           \
-        def_class(__FSM_TYPE,,                                                  \
+        def_class(__FSM_TYPE,                                                   \
             uint_fast8_t chState;                                               \
             __VA_ARGS__                                                         \
         )                                                                       \

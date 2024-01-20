@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/WALI-KANG)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -18,7 +18,7 @@
 #define __BYTE_QUEUE_CLASS_IMPLEMENT__
 #include "wl_queue.h"
 
-#if USE_SERVICE_QUEUE == ENABLED
+#if defined(WL_USING_RINGEQUEUE)
 #undef this
 #define this        (*ptThis)
 

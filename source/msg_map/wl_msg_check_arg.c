@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -16,6 +16,7 @@
 ****************************************************************************/
 
 #include "wl_msg_check_arg.h"
+#if defined(WL_USING_MSG_MAP)
 #include <string.h>
 def_simple_fsm( check_arg,
     def_params(
@@ -137,3 +138,4 @@ fsm_implementation(  check_arg )
     }
     body_end();
 }
+#endif

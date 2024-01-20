@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -16,14 +16,13 @@
 ****************************************************************************/
 
 #include "wl_subscribe_publish_agent.h"
-
+#if defined(WL_USING_SUBSCRIBE_PUBLISH)
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #undef this
 #define this        (*ptThis)
-
 
 wl_subscribe_publish_t *wl_subscribe_publish_init(wl_subscribe_publish_t *ptObj)
 {
@@ -42,4 +41,6 @@ wl_subscribe_publish_t *wl_subscribe_publish_init(wl_subscribe_publish_t *ptObj)
     init_fsm(search_msg_map, &this.fsmSearchTopicMap, args((msg_t *)&FMsgTab$$Base, (msg_t *)&FMsgTab$$Limit, &this.tByteInQueue,false));
     return ptObj;
 }
+
+#endif
 

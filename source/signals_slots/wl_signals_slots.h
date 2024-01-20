@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -18,7 +18,7 @@
 #ifndef __SIGNALS_SLOTS_H_
 #define __SIGNALS_SLOTS_H_
 #include ".\app_cfg.h"
-#if USE_SERVICE_SIGNALS_SLOTS == ENABLED
+#if defined(WL_USING_SIGNALS_SLOTS)
 #include <stdint.h>
 #include <string.h>
 #include <stdbool.h>

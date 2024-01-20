@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -18,10 +18,11 @@
 #ifndef MSG_MAP_MSG_MAP_H_
 #define MSG_MAP_MSG_MAP_H_
 #include "./app_cfg.h"
+#if defined(WL_USING_MSG_MAP)
 #include "wl_msg_check_str.h"
 #include "wl_msg_check_arg.h"
-#include "./Serve/queue/wl_queue.h"
-#include "./fsm/simple_fsm.h"
+#include "../Serve/queue/wl_queue.h"
+#include "../fsm/simple_fsm.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -66,6 +67,7 @@ extern_simple_fsm(search_msg_map,
 
 #ifdef __cplusplus
 }
+#endif
 #endif
 #endif /* MSG_MAP_MSG_MAP_H_ */
 

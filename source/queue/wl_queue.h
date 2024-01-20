@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -18,7 +18,7 @@
 #ifndef QUEUE_QUEUE_H_
 #define QUEUE_QUEUE_H_
 #include ".\app_cfg.h"
-#if USE_SERVICE_QUEUE == ENABLED
+#if defined(WL_USING_RINGEQUEUE)
 #include <stdint.h>
 #include <string.h>
 #include <stdbool.h>
@@ -49,9 +49,6 @@
 #define SAFE_NAME(__NAME)   CONNECT3(__,__NAME,__LINE__)
 #endif
 
-#if USE_PERF_COUNTER == ENABLED
-    #include "perf_counter.h"
-#else
 #ifndef safe_atom_code
     #include "cmsis_compiler.h"	
     #define safe_atom_code()                                            \
@@ -64,7 +61,7 @@
 						 
 							
 #endif
-#endif
+
 
 #define __DEQUEUE_0( __QUEUE, __ADDR)                                \
     dequeue_bytes((__QUEUE), (__ADDR),(sizeof(typeof(*(__ADDR)))))

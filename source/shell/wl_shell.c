@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -16,6 +16,7 @@
 ****************************************************************************/
 
 #include "wl_shell.h"
+#if defined(WL_USING_SHELL)
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
@@ -59,8 +60,9 @@ void  wl_shell_read(wl_shell_t *ptObj,uint8_t *pchData, uint16_t hwLength)
 	static enum input_stat s_tInputStat = WAIT_NORMAL;
 
 	for(uint16_t i = 0; i < hwLength; i++){
-		
-		if(pchData[i] == 0x1b){
+		if(pchData[i] == 0){
+			continue;
+		}else if(pchData[i] == 0x1b){
 			s_tInputStat = WAIT_SPEC_KEY;
 			continue;
 		}else if(s_tInputStat == WAIT_SPEC_KEY){
@@ -112,7 +114,7 @@ void  wl_shell_read(wl_shell_t *ptObj,uint8_t *pchData, uint16_t hwLength)
 		}
 		
         if (pchData[i] == '\r' || pchData[i]  == '\n'){
-			if(this.hwLinePosition  == strlen(this.chLineBuf)){
+			if(this.hwLinePosition  == strlen(this.chLineBuf) && this.hwLinePosition != 0){
                 shell_push_history(ptObj);
                 this.chLineBuf[this.hwLinePosition++] = pchData[i];
                 enqueue(&this.tByteInQueue, this.chLineBuf, this.hwLinePosition );			
@@ -129,7 +131,10 @@ void  wl_shell_read(wl_shell_t *ptObj,uint8_t *pchData, uint16_t hwLength)
             if (this.hwLinePosition < (MSG_ARG_LEN - 1)) {
                 this.chLineBuf[this.hwLinePosition++] = pchData[i];
 				this.hwLineLen = this.hwLinePosition;
-            }
+            }else{
+				this.hwLinePosition = 0;
+				this.hwLineLen = this.hwLinePosition;
+			}
 		}							
 	}	
     if(this.bEchoMode != false){
@@ -175,8 +180,9 @@ void wl_shell_echo(wl_shell_t *ptObj,uint8_t *pchData, uint16_t hwLength)
     };	
 	static enum input_stat s_tInputStat = WAIT_NORMAL;
 	for(uint16_t i = 0; i < hwLength; i++){
-		
-		if(pchData[i] == 0x1b){
+		if(pchData[i] == 0){
+			continue;
+		}else if(pchData[i] == 0x1b){
 			s_tInputStat = WAIT_SPEC_KEY;
 			continue;
 		}else if(s_tInputStat == WAIT_SPEC_KEY){
@@ -236,7 +242,7 @@ wl_shell_t *wl_shell_init(wl_shell_t *ptObj)
     wl_shell_t *(ptThis) = ptObj;
     assert(NULL != ptObj);
 	
-    this.bEchoMode = true;
+    this.bEchoMode = SHELL_OPTION_ECHO;
 	
     queue_init(&this.tByteInQueue,this.chQueueBuf,sizeof(this.chQueueBuf),true);
     init_fsm(search_msg_map, &this.fsmSearchMsgMap, args((msg_t *)&FSymTab$$Base, (msg_t *)&FSymTab$$Limit, &this.tByteInQueue,true));
@@ -279,12 +285,12 @@ static void shell_push_history(wl_shell_t *ptObj)
     
     if (this.hwLinePosition != 0){
         /* push history */
-        if (this.hwHistoryCount >= MSG_HISTORY_LINES){
+        if (this.hwHistoryCount >= SHELL_HISTORY_LINES){
             /* if current cmd is same as last cmd, don't push */
-            if (memcmp(&this.cHistoryCmdBuf[MSG_HISTORY_LINES - 1], this.chLineBuf, MSG_ARG_LEN)){
+            if (memcmp(&this.cHistoryCmdBuf[SHELL_HISTORY_LINES - 1], this.chLineBuf, MSG_ARG_LEN)){
                 /* move history */
                 int index;
-                for (index = 0; index < MSG_HISTORY_LINES - 1; index ++){
+                for (index = 0; index < SHELL_HISTORY_LINES - 1; index ++){
                     memcpy(&this.cHistoryCmdBuf[index][0],
                            &this.cHistoryCmdBuf[index + 1][0], MSG_ARG_LEN);
                 }
@@ -292,7 +298,7 @@ static void shell_push_history(wl_shell_t *ptObj)
                 memcpy(&this.cHistoryCmdBuf[index][0], this.chLineBuf, this.hwLinePosition);
 
                 /* it's the maximum history */
-                this.hwHistoryCount = MSG_HISTORY_LINES;
+                this.hwHistoryCount = SHELL_HISTORY_LINES;
             }
         }else{
             /* if current cmd is same as last cmd, don't push */
@@ -321,5 +327,6 @@ static int msh_help(int argc, char **argv)
     }
     return 0;
 }
-MSH_FUNCTION_EXPORT_CMD(msh_help, help, shell help);
+MSH_FUNCTION_EXPORT_CMD(msh_help, boot_help, shell help);
 
+#endif

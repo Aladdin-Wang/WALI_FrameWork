@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -17,6 +17,8 @@
 
 #ifndef APPLICATIONS_CHECK_AGENT_MSG_MAP_H_
 #define APPLICATIONS_CHECK_AGENT_MSG_MAP_H_
+#include "./app_cfg.h"
+#if defined(WL_USING_SHELL)
 #include "./msg_map/wl_msg_map.h"
 
 /**
@@ -52,7 +54,7 @@ typedef struct wl_shell_t{
 	uint16_t                  hwCurposPosition;
 	uint16_t                  hwCurrenthistory;
 	uint16_t                  hwHistoryCount;	
-	char                      cHistoryCmdBuf[MSG_HISTORY_LINES][MSG_ARG_LEN];	
+	char                      cHistoryCmdBuf[SHELL_HISTORY_LINES][MSG_ARG_LEN];	
 }wl_shell_t;
 
 extern wl_shell_t *wl_shell_init(wl_shell_t *ptObj);
@@ -61,5 +63,5 @@ extern void wl_shell_exec(wl_shell_t *ptObj);
 extern void wl_shell_echo(wl_shell_t *ptObj,uint8_t *pchData, uint16_t hwLength);
 extern bool wl_shell_get_echo(wl_shell_t *ptObj);
 extern void wl_shell_set_echo(wl_shell_t *ptObj,bool bEchoMode);
-
+#endif 
 #endif /* APPLICATIONS_CHECK_AGENT_XMODEM_H_ */

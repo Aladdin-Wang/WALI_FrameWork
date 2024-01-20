@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -17,7 +17,8 @@
 
 #ifndef SUBSCRIBE_AND_PUBLISH_H_
 #define SUBSCRIBE_AND_PUBLISH_H_
-
+#include ".\app_cfg.h"
+#if defined(WL_USING_SUBSCRIBE_PUBLISH)
 #include "./msg_map/wl_msg_map.h"
 #include "./signals_slots/wl_signals_slots.h"
 #include "./check_agent_engine/wl_check_agent_engine.h"
@@ -382,11 +383,14 @@ typedef struct wl_subscribe_publish_t{
 #define subscribe( __SentObj, __topic,__RecObj, __callBack)                \
           connect(__SentObj, __topic, __RecObj, __callBack);
 
-
+#define unsubscribe( __SentObj, __topic)                \
+          disconnect(__SentObj, __topic);
+		
 extern wl_subscribe_publish_t *wl_subscribe_publish_init(wl_subscribe_publish_t *ptObj);
 
 #ifdef __cplusplus
 }
+#endif
 #endif
 #endif /* MSG_MAP_MSG_MAP_H_ */
 

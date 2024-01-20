@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -18,8 +18,8 @@
 #ifndef __CHECK_ARG_H
 #define __CHECK_ARG_H
 #include "./app_cfg.h"
-#include "./Serve/fsm/simple_fsm.h"
-
+#if defined(WL_USING_MSG_MAP)
+#include "../Serve/fsm/simple_fsm.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -53,5 +53,5 @@ extern_simple_fsm(check_arg,
 #ifdef __cplusplus
 }
 #endif
-
+#endif
 #endif 

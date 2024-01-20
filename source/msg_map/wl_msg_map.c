@@ -1,5 +1,5 @@
 /****************************************************************************
-*  Copyright 2022 KK (https://github.com/Aladdin-Wang)                                    *
+*  Copyright 2022 kk (https://github.com/Aladdin-Wang)                                    *
 *                                                                           *
 *  Licensed under the Apache License, Version 2.0 (the "License");          *
 *  you may not use this file except in compliance with the License.         *
@@ -16,6 +16,7 @@
 ****************************************************************************/
 
 #include "wl_msg_map.h"
+#if defined(WL_USING_MSG_MAP)
 #include <string.h>
 static bool check_string_get_char(fsm(check_string) *ptObj,uint8_t *pchByte);
 static bool check_arg_get_bytes(fsm(check_arg) *ptObj,uint8_t *pchByte,uint16_t hwLength);
@@ -138,6 +139,7 @@ static bool check_string_get_char(fsm(check_string) *ptObj,uint8_t *pchByte)
     if (NULL == ptThis) {
         return false;
     }	
+	
 	return peek_queue(this.ptQueue,pchByte);
 }
 
@@ -148,5 +150,8 @@ static bool check_arg_get_bytes(fsm(check_arg) *ptObj,uint8_t *pchByte,uint16_t 
     if (NULL == ptThis) {
         return false;
     }	
+
 	return peek_queue(this.ptQueue,pchByte,hwLength);    
 }
+
+#endif
