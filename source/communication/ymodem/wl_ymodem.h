@@ -76,7 +76,7 @@ typedef struct ymodem_t {
 } ymodem_t;
 
 /* External function declarations for CRC calculation, YMODEM receive, and send operations */
-extern uint16_t modem_crc16(unsigned char *q, int len);
+extern uint16_t ymodem_crc16(unsigned char *q, int len);
 extern fsm_rt_t ymodem_receive(ymodem_t *ptThis);
 extern fsm_rt_t ymodem_send(ymodem_t *ptThis);
 

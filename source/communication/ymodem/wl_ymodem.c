@@ -99,7 +99,7 @@ static uint16_t CRC16(uint8_t *pchData, int hwLen)
     return crc;
 }
 #else
-uint16_t modem_crc16(unsigned char *q, int len)
+uint16_t ymodem_crc16(unsigned char *q, int len)
 {
     uint16_t crc;
     char i;
@@ -221,7 +221,7 @@ static ymodem_packet_state_t ymodem_receive_package(ymodem_package_t *ptThis,ymo
             ymodem_read_stat_t tFsm = ptOps->fnReadDataWithTimeout(ptOps->pchBuffer, ptOps->hwSize, DLY_1S, DLY_1S);    
             if(YMODEM_READ_CPL == tFsm){
                 /* Data read complete, compute CRC check for validation. */
-                this.hwCheck = modem_crc16(ptOps->pchBuffer, ptOps->hwSize);
+                this.hwCheck = ymodem_crc16(ptOps->pchBuffer, ptOps->hwSize);
                 /* Proceed to reading the first byte of the CRC check from the packet. */
                 this.chState = READ_CHECK_L;               
             }else if(YMODEM_READ_TIMEOUT == tFsm){
@@ -308,8 +308,7 @@ fsm_rt_t ymodem_receive(ymodem_t *ptThis)
 	/* Macro to reset the finite state machine (FSM) */
 	#define YMODEM_RECEIVE_RESET_FSM()    do{this.chState = 0;}while(0)	
 	/* Enum defining FSM states for receiving */
-    enum { START = 0, SEND_C1,RECEIVE_PACK_PATH,SEND_ACK1, SEND_C2,RECEIVE_PACK_DATA, SEND_ANSWER, RECIVE_EOT,SEND_ACK2};
-    ymodem_packet_state_t tPackageState;
+    enum { START = 0, SEND_C1,RECEIVE_PACK_PATH,SEND_ACK1, SEND_C2,RECEIVE_PACK_DATA, SEND_ANSWER,SEND_NAK, RECIVE_EOT,SEND_ACK2};
     /* Processing the incoming data using a switch-case statement based on the current state. */
     switch(this.chState){
         case START:{
@@ -331,7 +330,7 @@ fsm_rt_t ymodem_receive(ymodem_t *ptThis)
         }
         case RECEIVE_PACK_PATH:{
             /* Attempting to receive the file path packet, the first step in Ymodem transfer. */
-            tPackageState = ymodem_receive_package(&this.tPackage, &this.tOps, 0);
+            ymodem_packet_state_t tPackageState = ymodem_receive_package(&this.tPackage, &this.tOps, 0);
             /* Completion of file path package reception. */
             if(tPackageState == PACKET_CPL) {
                 /* Successful reception, invoke user-defined callback to handle the file path. */
@@ -383,7 +382,7 @@ fsm_rt_t ymodem_receive(ymodem_t *ptThis)
         }       
         case RECEIVE_PACK_DATA:{
             /* Managing the reception of actual file data packets. */
-            tPackageState = ymodem_receive_package(&this.tPackage, &this.tOps, this.chPacketNum);
+            ymodem_packet_state_t tPackageState = ymodem_receive_package(&this.tPackage, &this.tOps, this.chPacketNum);
             /* Processing the outcome of the packet reception. */
             switch(tPackageState){
                 case PACKET_ON_GOING:
@@ -440,8 +439,8 @@ fsm_rt_t ymodem_receive(ymodem_t *ptThis)
                 case PACKET_EOT:
                     /* End Of Transmission (EOT) signifies the end, prepare to send NAK before final ACK. */
                     this.chByte = NAK;
-                    this.chState = SEND_ANSWER;
-                    break;
+                    this.chState = SEND_NAK;
+                    return fsm_rt_on_going;
                 default:
                     /* Any other unknown packet state leads to breaking the switch to re-evaluate. */
                     break;
@@ -455,16 +454,19 @@ fsm_rt_t ymodem_receive(ymodem_t *ptThis)
                     /* If a cancellation was sent, reset FSM and return error. */
                     YMODEM_RECEIVE_RESET_FSM();
                     return fsm_rt_err;
-                } else if(this.chByte == NAK && tPackageState == PACKET_EOT) {
-                    /* If an NAK was sent in response to EOT, prepare to receive the EOT reply. */
-                    this.chState = RECIVE_EOT;
-                } else {
+                }else {
                     /* For other responses, continue by trying to receive the next data packet. */
                     this.chState = RECEIVE_PACK_DATA;
                     break;
                 }
             }                 
-        }
+        }		
+        case SEND_NAK:{
+            /* Responding to the sender based on the result of the packet reception. */
+            if(this.tOps.fnWriteData(&this.chByte, 1)) {
+                this.chState = RECIVE_EOT;
+            }                 
+        }			
         case RECIVE_EOT:{
             /* Attempt to receive EOT reply to conclude the transmission. */
             ymodem_read_stat_t tFsm = this.tOps.fnReadDataWithTimeout(&this.chByte, 1, DLY_3S, DLY_1S);
@@ -528,12 +530,15 @@ static ymodem_packet_state_t ymodem_send_package(ymodem_package_t *ptThis, ymode
             if(ptOps->hwSize <= MODEM_DATA_BUFFER_SIZE){
                 /* Use standard header for smaller packets. */
                 this.chHead = SOH;
+				/* Compute CRC for data validation; it will be sent after the data. */
+                this.hwCheck = ymodem_crc16(ptOps->pchBuffer, MODEM_DATA_BUFFER_SIZE);
             }else{
                 /* Use 1K header for larger packets. */
                 this.chHead = STX;
+				/* Compute CRC for data validation; it will be sent after the data. */
+                this.hwCheck = ymodem_crc16(ptOps->pchBuffer, MODEM_1K_DATA_BUFFER_SIZE);
             }
-            /* Compute CRC for data validation; it will be sent after the data. */
-            this.hwCheck = modem_crc16(ptOps->pchBuffer, ptOps->hwSize);
+
             /* Transition to the state of sending the packet header. */
             this.chState = SEND_HEAD;
         }
@@ -571,7 +576,8 @@ static ymodem_packet_state_t ymodem_send_package(ymodem_package_t *ptThis, ymode
         }
         case SEND_DATA:{ 
             /* Send the payload data to the receiver. */
-            if(ptOps->fnWriteData(ptOps->pchBuffer, ptOps->hwSize)) {
+            if(ptOps->fnWriteData(ptOps->pchBuffer, 
+				((ptOps->hwSize <= MODEM_DATA_BUFFER_SIZE)?MODEM_DATA_BUFFER_SIZE:MODEM_1K_DATA_BUFFER_SIZE))) {
                 /* If the data is successfully sent, proceed to send the first byte of the CRC. */
                 this.chState = SEND_CHECK_L;
             }else{
@@ -638,9 +644,6 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
         SEND_EOT2,
         RECEIVE_ACK2
     };
-
-    /* Variable to track the state of packet operation */
-    ymodem_packet_state_t tPackageState;
 
     /* Main switch to control the Ymodem send operation state machine */
     switch (this.chState) {
@@ -751,11 +754,9 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
                         if(this.tOps.hwSize <= MODEM_DATA_BUFFER_SIZE){
                             /* If hwSize is less than buffer size, pad the rest with CTRLZ (EOF marker) */
                             memset(&this.tOps.pchBuffer[this.tOps.hwSize],0x1A,MODEM_DATA_BUFFER_SIZE - this.tOps.hwSize);
-                            this.tOps.hwSize = MODEM_DATA_BUFFER_SIZE;
                         }else if(this.tOps.hwSize <= MODEM_1K_DATA_BUFFER_SIZE){
                             /* If hwSize is less than 1K buffer size, pad as well */
-                            memset(&this.tOps.pchBuffer[this.tOps.hwSize],0x1A,MODEM_1K_DATA_BUFFER_SIZE - this.tOps.hwSize);
-                            this.tOps.hwSize = MODEM_1K_DATA_BUFFER_SIZE;              
+                            memset(&this.tOps.pchBuffer[this.tOps.hwSize],0x1A,MODEM_1K_DATA_BUFFER_SIZE - this.tOps.hwSize);            
                         }else{
                             /* hwSize too large, reset state machine and return error */
                             YMODEM_SEND_RESET_FSM();
@@ -787,7 +788,7 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
          */
         case SEND_PACK_DATA:{
             /* Send a single ymodem packet and check for completion */
-            tPackageState = ymodem_send_package(&this.tPackage, &this.tOps, this.chPacketNum);
+            ymodem_packet_state_t tPackageState = ymodem_send_package(&this.tPackage, &this.tOps, this.chPacketNum);
             if(tPackageState == PACKET_CPL){
                 /* Packet sent successfully, wait for receiver's response */
                 this.chState = RECEIVE_ANSWER;
@@ -809,29 +810,40 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
                     /* Received ACK, packet transmission succeeded */
                     this.chTryCount = 0; // Reset the retry count
                     this.chPacketNum++; // Prepare the next packet
-
-                    /* Call the callback to fill buffer with next part of data */
-                    if(this.tOps.fnOnFileData(this.tOps.pchBuffer, &this.tOps.hwSize)){
-                        /* Check if the file transmission is complete */
-                        if(this.tOps.hwSize == 0){
-                            /* No more data left, proceed to send EOT */
-                            this.chState = SEND_EOT1;
-                        }else{
-                            /* More data available, prepare data packet */
-                            if(this.tOps.hwSize < MODEM_DATA_BUFFER_SIZE){
-                                /* Pad the data to fill buffer if smaller than a full buffer size */
+					if(this.tOps.hwSize < MODEM_DATA_BUFFER_SIZE){
+                        /* If hwSize is less than the standard buffer size, prepare to send EOT (End Of Transmission) */						
+						this.chState = SEND_EOT1;
+					}else if(this.tOps.hwSize < MODEM_1K_DATA_BUFFER_SIZE){
+                        /* If hwSize is less than the standard buffer size, prepare to send EOT (End Of Transmission) */						
+						this.chState = SEND_EOT1;
+					}else{
+                        /* Call the callback to fill buffer with next part of data */
+                        if(this.tOps.fnOnFileData(this.tOps.pchBuffer, &this.tOps.hwSize)){
+                            /* Prepare and process file data for transmission */
+							if(this.tOps.hwSize == 0){
+                                /* No data left to send, prepare to send EOT (End Of Transmission) */
+								this.chState = SEND_EOT1;
+							}else if(this.tOps.hwSize <= MODEM_DATA_BUFFER_SIZE){
+                                /* If hwSize is less than buffer size, pad the rest with CTRLZ (EOF marker) */
                                 memset(&this.tOps.pchBuffer[this.tOps.hwSize],0x1A,MODEM_DATA_BUFFER_SIZE - this.tOps.hwSize);
-                                this.tOps.hwSize = MODEM_DATA_BUFFER_SIZE;
+                                this.chState = SEND_PACK_DATA;
+						        break;
+                            }else if(this.tOps.hwSize <= MODEM_1K_DATA_BUFFER_SIZE){
+                                /* If hwSize is less than 1K buffer size, pad as well */
+                                memset(&this.tOps.pchBuffer[this.tOps.hwSize],0x1A,MODEM_1K_DATA_BUFFER_SIZE - this.tOps.hwSize); 
+                                this.chState = SEND_PACK_DATA;
+						        break;							
+                            }else{
+                                /* hwSize too large, reset state machine and return error */
+                                YMODEM_SEND_RESET_FSM();
+                                return fsm_rt_err; 
                             }
-                            /* Send the next data packet */
-                            this.chState = SEND_PACK_DATA;
-                            break;
+                        }else{
+                            /* Callback failed, reset FSM and return error */
+                            YMODEM_SEND_RESET_FSM();
+                            return fsm_rt_err;                  
                         }
-                    }else{
-                        /* Callback failed, reset FSM and return error */
-                        YMODEM_SEND_RESET_FSM();
-                        return fsm_rt_err;                  
-                    }
+				    }
                 }else if (this.chByte == NAK){
                     /* Received NAK, packet transmission failed, retry */
                     this.chTryCount++;
