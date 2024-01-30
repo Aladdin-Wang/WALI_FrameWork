@@ -51,12 +51,11 @@ fsm_implementation(check_use_peek)
         }
         state(CHECK_AGENT) {
             fsm_rt_t tFsm = this.ptFreeList->fnCheck(this.ptFreeList->pAgent);
-            if(fsm_rt_cpl == tFsm){              
-                fsm_cpl();
-            }
             if(fsm_rt_on_going == tFsm){               
                 this.ptFreeList = this.ptFreeList->ptNext;
                 transfer_to(IS_END_OF_AGENT);
+            }else{
+                fsm_cpl();
             }
         }
         body_end();
@@ -76,6 +75,7 @@ bool agent_register(fsm_check_use_peek_t *ptObj,check_agent_t *ptNewItem)
     }
     ptNewItem->ptNext = this.ptCheckList;
     this.ptCheckList = ptNewItem;
+    this.ptFreeList = this.ptCheckList;
     return true;
 }
 
@@ -87,6 +87,7 @@ bool agent_unregister(fsm_check_use_peek_t *ptObj,check_agent_t *ptItem)
     }
     if(this.ptCheckList == ptItem){
         this.ptCheckList = ptItem->ptNext;
+        this.ptFreeList = this.ptCheckList;
         return true;
     }
     for(this.ptFreeList = this.ptCheckList;this.ptFreeList != NULL; this.ptFreeList = this.ptFreeList->ptNext){

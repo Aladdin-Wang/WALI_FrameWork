@@ -15,8 +15,8 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef MSG_MAP_MSG_MAP_H_
-#define MSG_MAP_MSG_MAP_H_
+#ifndef __SERVE_MSG_MAP_H_
+#define __SERVE_MSG_MAP_H_
 #include "./app_cfg.h"
 #if defined(WL_USING_MSG_MAP)
 #include "wl_msg_check_str.h"

@@ -18,43 +18,43 @@
 #include "wl_msg_map.h"
 #if defined(WL_USING_MSG_MAP)
 #include <string.h>
-static bool check_string_get_char(fsm(check_string) *ptObj,uint8_t *pchByte);
-static bool check_arg_get_bytes(fsm(check_arg) *ptObj,uint8_t *pchByte,uint16_t hwLength);
+static bool check_string_get_char(fsm(check_string) *ptObj, uint8_t *pchByte);
+static bool check_arg_get_bytes(fsm(check_arg) *ptObj, uint8_t *pchByte, uint16_t hwLength);
 
 def_simple_fsm( search_msg_map,
-		def_params(
-			fsm(check_string)  fsmCheckStr;
-			fsm(check_arg)     fsmCheckArg;
-			msg_t              *ptMsgTableBase;
-			msg_t              *ptMsgTableLimit;	
-            uint8_t            chByte;            
-			uint16_t           hwIndex;
-            byte_queue_t       *ptQueue;
-			bool               bArgIsString;
-			bool               bIsRequestDrop;
-			char               *argv[MSG_ARG_MAX];
-			int                argc;
-		)
-	  )
+							def_params(
+											fsm(check_string)  fsmCheckStr;
+											fsm(check_arg)     fsmCheckArg;
+											msg_t              *ptMsgTableBase;
+											msg_t              *ptMsgTableLimit;
+											uint8_t            chByte;
+											uint16_t           hwIndex;
+											byte_queue_t       *ptQueue;
+											bool               bArgIsString;
+											bool               bIsRequestDrop;
+											char               *argv[MSG_ARG_MAX];
+											int                argc;
+							)
+					)
 
 fsm_initialiser(search_msg_map,
-	args(
-		msg_t *ptMsgTableBase,
-		msg_t *ptMsgTableLimit,
-		byte_queue_t *ptQueue,
-		bool bArgIsString
-	))
+										args(
+														msg_t *ptMsgTableBase,
+														msg_t *ptMsgTableLimit,
+														byte_queue_t *ptQueue,
+														bool bArgIsString
+										))
 
-   init_body (
+    init_body (
         if (NULL == ptQueue || NULL == ptMsgTableBase || NULL == ptMsgTableLimit)
         {
-		    abort_init();
+           abort_init();
         }
-		this.ptMsgTableBase = ptMsgTableBase;
-		this.ptMsgTableLimit = ptMsgTableLimit;
-		this.ptQueue = ptQueue;	
-		this.bArgIsString = bArgIsString;
-   )
+        this.ptMsgTableBase = ptMsgTableBase;
+        this.ptMsgTableLimit = ptMsgTableLimit;
+        this.ptQueue = ptQueue;
+        this.bArgIsString = bArgIsString;
+    )
 
 
 fsm_implementation(search_msg_map)
@@ -72,14 +72,15 @@ fsm_implementation(search_msg_map)
     state(IS_END_OF_MSG) {
         if(&this.ptMsgTableBase[this.hwIndex] == this.ptMsgTableLimit) {
             if(this.bIsRequestDrop != false) {
-                if(dequeue(this.ptQueue,&this.chByte)){
+                if(dequeue(this.ptQueue, &this.chByte)) {
                     reset_fsm();
-					fsm_on_going();
+                    fsm_on_going();
                 }
-            } 
+            }
+
             fsm_cpl();
         } else {
-            init_fsm(check_string, &(this.fsmCheckStr), args((const char *)(this.ptMsgTableBase[this.hwIndex].pchMessage),check_string_get_char));
+            init_fsm(check_string, &(this.fsmCheckStr), args((const char *)(this.ptMsgTableBase[this.hwIndex].pchMessage), check_string_get_char));
             reset_peek(this.ptQueue);
             update_state_to(MSG);
         }
@@ -91,7 +92,7 @@ fsm_implementation(search_msg_map)
         if(fsm_rt_cpl == tFsm) {
             memset(this.argv, 0, sizeof(this.argv));
             init_fsm(check_arg, &(this.fsmCheckArg), args((const char *)(this.ptMsgTableBase[this.hwIndex].pchMessage),
-                     check_arg_get_bytes, &this.argc, this.argv,this.bArgIsString));
+                     check_arg_get_bytes, &this.argc, this.argv, this.bArgIsString));
             update_state_to(ARG);
         }
 
@@ -109,9 +110,10 @@ fsm_implementation(search_msg_map)
 
     state(ARG) {
         fsm_rt_t tFsm = call_fsm( check_arg, &(this.fsmCheckArg));
+
         if(fsm_rt_cpl == tFsm) {
             this.ptMsgTableBase[this.hwIndex].fnHandler(this.argc, (void *)this.argv);
-			get_all_peeked(this.ptQueue);
+            get_all_peeked(this.ptQueue);
             fsm_cpl();
         }
 
@@ -131,27 +133,27 @@ fsm_implementation(search_msg_map)
 
 #define container_of(ptr, type, member) \
     ((type *)((char *)(ptr) - (unsigned long)(&((type *)0)->member)))
-		
-static bool check_string_get_char(fsm(check_string) *ptObj,uint8_t *pchByte)
+
+static bool check_string_get_char(fsm(check_string) *ptObj, uint8_t *pchByte)
 {
-    class(fsm(search_msg_map)) *ptThis = container_of(ptObj,class(fsm(search_msg_map)),fsmCheckStr);
-	
+    class(fsm(search_msg_map)) *ptThis = container_of(ptObj, class(fsm(search_msg_map)), fsmCheckStr);
+
     if (NULL == ptThis) {
         return false;
-    }	
-	
-	return peek_queue(this.ptQueue,pchByte);
+    }
+
+    return peek_queue(this.ptQueue, pchByte);
 }
 
-static bool check_arg_get_bytes(fsm(check_arg) *ptObj,uint8_t *pchByte,uint16_t hwLength)
+static bool check_arg_get_bytes(fsm(check_arg) *ptObj, uint8_t *pchByte, uint16_t hwLength)
 {
-    class(fsm(search_msg_map)) *ptThis = container_of(ptObj,class(fsm(search_msg_map)),fsmCheckArg);
-	
+    class(fsm(search_msg_map)) *ptThis = container_of(ptObj, class(fsm(search_msg_map)), fsmCheckArg);
+
     if (NULL == ptThis) {
         return false;
-    }	
+    }
 
-	return peek_queue(this.ptQueue,pchByte,hwLength);    
+    return peek_queue(this.ptQueue, pchByte, hwLength);
 }
 
 #endif

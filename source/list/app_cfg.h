@@ -1,8 +1,8 @@
 //! \note do not move this pre-processor statement to other places
 #include "..\app_cfg.h"
 
-#ifndef __SIGNALS_SLOTS_CFG_H__
-#define __SIGNALS_SLOTS_CFG_H__
+#ifndef __SERVE_LIST_H__
+#define __SERVE_LIST_H__
 
 /*============================ INCLUDES ======================================*/
 /*============================ MACROS ========================================*/
@@ -11,7 +11,7 @@
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
-
+ 
 
 #endif
 /* EOF */

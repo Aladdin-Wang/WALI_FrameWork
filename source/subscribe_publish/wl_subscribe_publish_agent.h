@@ -15,8 +15,8 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef SUBSCRIBE_AND_PUBLISH_H_
-#define SUBSCRIBE_AND_PUBLISH_H_
+#ifndef __SERVE_SUBSCRIBE_AND_PUBLISH_H_
+#define __SERVE_SUBSCRIBE_AND_PUBLISH_H_
 #include ".\app_cfg.h"
 #if defined(WL_USING_SUBSCRIBE_PUBLISH)
 #include "./msg_map/wl_msg_map.h"
@@ -383,8 +383,8 @@ typedef struct wl_subscribe_publish_t{
 #define subscribe( __SentObj, __topic,__RecObj, __callBack)                \
           connect(__SentObj, __topic, __RecObj, __callBack);
 
-#define unsubscribe( __SentObj, __topic)                \
-          disconnect(__SentObj, __topic);
+#define unsubscribe( __SentObj, __topic,__RecObj, __callBack)                \
+          disconnect(__SentObj, __topic, __RecObj, __callBack);
 		
 extern wl_subscribe_publish_t *wl_subscribe_publish_init(wl_subscribe_publish_t *ptObj);
 

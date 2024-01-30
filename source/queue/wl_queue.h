@@ -15,8 +15,8 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef QUEUE_QUEUE_H_
-#define QUEUE_QUEUE_H_
+#ifndef __SERVE_QUEUE_H_
+#define __SERVE_QUEUE_H_
 #include ".\app_cfg.h"
 #if defined(WL_USING_RINGEQUEUE)
 #include <stdint.h>

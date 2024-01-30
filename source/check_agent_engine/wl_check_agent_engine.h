@@ -15,8 +15,8 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef APPLICATIONS_CHECK_USE_PEEK_H_
-#define APPLICATIONS_CHECK_USE_PEEK_H_
+#ifndef __SERVE_CHECK_AGENT_ENGINE_H_
+#define __SERVE_CHECK_AGENT_ENGINE_H_
 #include "./app_cfg.h"
 #if USE_SERVICE_CHECK_USE_PEEK == ENABLED
 #include "./queue/wl_queue.h"

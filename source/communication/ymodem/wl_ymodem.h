@@ -15,8 +15,8 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef __YMODEM_H
-#define __YMODEM_H
+#ifndef __SERVE_YMODEM_H_
+#define __SERVE_YMODEM_H_
 
 /* Inclusion of necessary system headers and configuration headers */
 #include "./app_cfg.h"
@@ -40,12 +40,13 @@ typedef enum {
 } ymodem_read_stat_t;
 
 /* Callback type definitions for various YMODEM operations */
-typedef bool (ymodem_call_back)(uint8_t *pchBuffer, uint16_t *phwSize);
-typedef ymodem_read_stat_t (ymodem_read_with_timeout_call_back)(uint8_t* pchByte, uint16_t hwSize, uint16_t hwFrameTimeout, uint16_t hwBytesTimeout);
-typedef bool (ymodem_write_call_back)(uint8_t* pchByte, uint16_t hwSize);
+typedef bool (ymodem_call_back)(void *pObj,uint8_t *pchBuffer, uint16_t *phwSize);
+typedef ymodem_read_stat_t (ymodem_read_with_timeout_call_back)(void *pObj,uint8_t* pchByte, uint16_t hwSize, uint16_t hwFrameTimeout, uint16_t hwBytesTimeout);
+typedef bool (ymodem_write_call_back)(void *pObj,uint8_t* pchByte, uint16_t hwSize);
 
 /* Struct for encapsulating YMODEM operation functions */
 typedef struct ymodem_ops_t {
+    void *pObj;     /* Pointer to derived class object*/
     uint16_t hwSize; /* Size of the data block */
     uint8_t *pchBuffer; /* Pointer to data buffer */
     ymodem_call_back *fnOnFilePath; /* Callback for file path operation */
@@ -83,6 +84,7 @@ extern fsm_rt_t ymodem_send(ymodem_t *ptThis);
 /* Initialization function for the YMODEM protocol */
 extern bool ymodem_init(
          ymodem_t *ptThis,
+         void *pObj,
          uint8_t *pchBuffer,
          uint16_t hwSize,
          ymodem_call_back *fnOnFilePath,

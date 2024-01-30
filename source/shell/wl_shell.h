@@ -15,8 +15,8 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef APPLICATIONS_CHECK_AGENT_MSG_MAP_H_
-#define APPLICATIONS_CHECK_AGENT_MSG_MAP_H_
+#ifndef __SERVE_SHELL_H_
+#define __SERVE_SHELL_H_
 #include "./app_cfg.h"
 #if defined(WL_USING_SHELL)
 #include "./msg_map/wl_msg_map.h"
