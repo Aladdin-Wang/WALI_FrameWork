@@ -56,39 +56,6 @@ bool direct_connect(sig_slot_t *ptSender, const char *pchSignal, void *pReceiver
 
         ptMetaObj = ptMetaObj->ptNext;
 
-        /* Allow signals to be connected to other signals */
-        if (strstr(pMethod, "sig_")) {
-            memcpy(ptMetaObj->pchSignal, pchSignal, strlen(pchSignal));
-
-            /* Check for duplicate connections */
-            if(strcmp(ptMetaObj->pchSignal, pchSignal) == 0 && ptMetaObj->pReceiver == pReceiver &&
-               ptMetaObj->pMethod == pMethod) {
-                return false;
-            }
-
-            /* Traverse to the end of the signal-slot list */
-            while (ptMetaObj->ptNext != NULL) {
-                ptMetaObj = ptMetaObj->ptNext;
-
-                /* Check for duplicate connections */
-                if(strcmp(ptMetaObj->pchSignal, pchSignal) == 0 && ptMetaObj->pReceiver == pReceiver &&
-                   ptMetaObj->pMethod == pMethod) {
-                    return false;
-                }
-            }
-
-            /* Connect the signal to the receiver */
-            ptMetaObj->ptNext = pReceiver;
-            ptMetaObj->ptNext->ptPrev = ptMetaObj;
-            ptMetaObj = ptMetaObj->ptNext;
-
-            /* Copy the method name to the metadata object */
-            memcpy(ptMetaObj->pchSignal, pchSignal, strlen(pchSignal));
-
-            /* Exit the loop */
-            break;
-        }
-
         /* Support connecting one signal to multiple slot functions or multiple signals to one slot function */
         if (strcmp(ptMetaObj->pchSignal, pchSignal) == 0 || strlen(ptMetaObj->pchSignal) > 0) {
             /* Allocate memory for a new signal object */
