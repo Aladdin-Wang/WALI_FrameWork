@@ -1015,7 +1015,7 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
             } else if(YMODEM_READ_TIMEOUT == tFsm) {
                 /* Timeout waiting for NAK, reset FSM to handle error */
                 ymodem_transfer_completed(this.tOps.pObj, false);
-                YMODEM_RECEIVE_RESET_FSM();
+                YMODEM_SEND_RESET_FSM();
                 return fsm_rt_err;
             } else {
                 /* Reading still in progress or other error, stay in state */
@@ -1051,7 +1051,7 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
                 /* Check if the byte received is an ACK */
                 if(this.chByte == ACK) {
                     /* Final ACK received, transmission successfully terminated */
-                    YMODEM_RECEIVE_RESET_FSM(); // Reset the FSM for next transaction
+                    YMODEM_SEND_RESET_FSM(); // Reset the FSM for next transaction
                     return fsm_rt_on_going; // Return completion status
                 } else {
                     /* If the response is not ACK, remain in this state and wait */
@@ -1060,7 +1060,7 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
             } else if(YMODEM_READ_TIMEOUT == tFsm) {
                 /* Timeout waiting for ACK, reset FSM to handle error */
                 ymodem_transfer_completed(this.tOps.pObj, false);
-                YMODEM_RECEIVE_RESET_FSM();
+                YMODEM_SEND_RESET_FSM();
                 return fsm_rt_err;
             } else {
                 /* Reading still in progress or other error, stay in state */
@@ -1125,3 +1125,5 @@ bool ymodem_init(
     /* Return true to indicate successful initialization. */
     return true;
 }
+
+
