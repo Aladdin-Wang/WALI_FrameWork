@@ -750,7 +750,7 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
          * expecting a 'C' character signaling CRC mode.
          */
         case RECEIVE_C1: {
-            ymodem_read_stat_t tFsm = this.tOps.fnReadDataWithTimeout(this.tOps.pObj, &this.chByte, 1, DLY_3S, DLY_1S);
+            ymodem_read_stat_t tFsm = this.tOps.fnReadDataWithTimeout(this.tOps.pObj, &this.chByte, 1, DLY_10S, DLY_1S);
 
             if(YMODEM_READ_CPL == tFsm) {
                 if(this.chByte == CRC_C) {
@@ -956,6 +956,7 @@ fsm_rt_t ymodem_send(ymodem_t *ptThis)
                     } else {
                         /* Retry sending the last packet */
                         this.chState = SEND_PACK_DATA;
+											  break;
                     }
                 } else if(this.chByte == CAN) {
                     /* Received CAN, transmission cancelled, reset FSM and return error */
