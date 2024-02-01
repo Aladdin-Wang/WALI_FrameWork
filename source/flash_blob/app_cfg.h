@@ -1,9 +1,9 @@
 //! \note do not move this pre-processor statement to other places
 #include "..\app_cfg.h"
 
-#ifndef __KEY_EVENT_CFG_H__
-#define __KEY_EVENT_CFG_H__
-
+#ifndef __FLASH_BLOB_CFG_H__
+#define __FLASH_BLOB_CFG_H__
+  
 /*============================ INCLUDES ======================================*/
 /*============================ MACROS ========================================*/
 /*============================ MACROFIED FUNCTIONS ===========================*/
