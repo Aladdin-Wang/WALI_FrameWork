@@ -25,6 +25,7 @@
 #include "./subscribe_publish/wl_subscribe_publish_agent.h"
 #include "./shell/wl_shell.h"
 #include "./logging/wl_log.h"
+#include "./flash_blob/wl_flash_blob.h"
 extern bool service_init(void);
 
 
