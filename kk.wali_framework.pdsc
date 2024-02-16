@@ -39,8 +39,6 @@
         <file category="header" name="source/signals_slots/wl_signals_slots.h"/>
         <file category="sourceC" name="source/signals_slots/wl_signals_slots.c"/>
       </files>
-	  <!-- \brief Enable RTOS Patch for perf_counter -->
-	  <define name="__USE_SIGNALS_SLOTS__" value="1"/>
     </component>
   </components>
 
