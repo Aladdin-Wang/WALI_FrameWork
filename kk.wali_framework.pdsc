@@ -43,7 +43,7 @@
   </components>
 
   <!-- optional taxonomy section for defining new component Class and Group names -->
-  <taxonomies>
+  <taxonomy>
     <description Cclass="FrameWork" Cgroup="wali_framework" doc="documents/Doxygen/html/index.html">A signal and slot module implemented in C language.</description>
-  </taxonomies>
+  </taxonomy>
 </package>
