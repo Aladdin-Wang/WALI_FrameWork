@@ -26,25 +26,30 @@
 
   <keywords>
     <!-- keywords for indexing -->
-    <keyword>QT signals slots</keyword>
+    <keyword>signals slots</keyword>
     <keyword>C Language</keyword>
     <keyword>Data Structures</keyword>
   </keywords>
-  
+
+//! \brief Enable RTOS Patch for perf_counter
+#define __USE_SIGNALS_SLOTS__ 1
+  </Pre_Include_Global_h>  
   <components>
     <!-- signals_slots 组件 -->
-    <component Cclass="WALI_FrameWork" Cversion="0.9.0" Cgroup="wali_framework" >
+    <component Cclass="FrameWork" Cversion="0.9.0" Csub="signals_slots" isDefaultVariant="true" Cgroup="wali_framework" >
       <description>A signal and slot module implemented in C language.</description>
       <files>
         <file category="header" name="source/signals_slots/wl_signals_slots.h"/>
-        <file category="source" name="source/signals_slots/wl_signals_slots.c"/>
+        <file category="sourceC" name="source/signals_slots/wl_signals_slots.c"/>
       </files>
+	  </Pre_Include_Global_h>
+	  #define __USE_SIGNALS_SLOTS__ 1
     </component>
 	
   </components>
 
   <!-- optional taxonomy section for defining new component Class and Group names -->
   <taxonomy>
-    <description Cclass="WALI_FrameWork" Cgroup="wali_framework" doc="documents/Doxygen/html/index.html">A signal and slot module implemented in C language.</description>
+    <description Cclass="FrameWork" Cgroup="wali_framework" doc="documents/Doxygen/html/index.html">A signal and slot module implemented in C language.</description>
   </taxonomy>
 </package>
