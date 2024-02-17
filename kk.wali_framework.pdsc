@@ -40,8 +40,8 @@
         <file category="header" name="source/app_cfg.h" attr="config" version="1.0.1"/>
         <file category="source" name="source/wl_serve.c" attr="config" version="1.0.1"/>
 		
-        <file category="header" name="source/signals_slots/wl_signals_slots.h"/>
-        <file category="sourceC" name="source/signals_slots/wl_signals_slots.c"/>
+        <file category="header" name="source/IPC/subscribe_publish/signals_slots/wl_signals_slots.h"/>
+        <file category="sourceC" name="source/IPC/subscribe_publish/signals_slots/wl_signals_slots.c"/>
       </files>
     </component>
 	

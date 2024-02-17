@@ -13,12 +13,12 @@ nav:
     - 配置: config.md
     - 使用方法: usage.md
   - 基础知识: 
-    - 变参函数和可变参数宏: basic_knowledge/变参函数和可变参数宏.md
-    - 线程安全和函数可重入: basic_knowledge/线程安全和函数可重入.md
-    - 异步与同步: basic_knowledge/异步与同步.md
-    - 状态机: basic_knowledge/状态机.md
+    - 变参函数和可变参数宏: basic_knowledge/ParameterMacro.md
+    - 线程安全和函数可重入: basic_knowledge/ThreadSafetyAndFunctionReentrancy.md
+    - 异步与同步: basic_knowledge/AsynchronousAndSynchronous.md
+    - 状态机: basic_knowledge/fsm.md
   - 模块:
-    - 信号槽: signals_slots/C语言模拟QT的信号与槽功能.md
+    - 信号槽: signals_slots/signals_slots.md
     - 发布订阅: subscribe_publish/subscribe_publish.md
     - msgmap: msgmap/msgmap.md
     - shell: shell/shell.md
