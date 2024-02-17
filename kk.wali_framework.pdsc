@@ -36,7 +36,7 @@
     <component Cclass="FrameWork" Cversion="0.9.1" Cgroup="wali_framework" >
       <description>A signal and slot module implemented in C language.</description>
       <files>
-	    <file category="include" name="include/"/>
+	    <file category="include" name="source/"/>
         <file category="header" name="source/app_cfg.h" attr="config" version="0.9.1"/>
         <file category="source" name="source/wl_serve.c" attr="config" version="0.9.1"/>
 		
