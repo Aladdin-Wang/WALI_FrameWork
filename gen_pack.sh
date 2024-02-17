@@ -37,6 +37,9 @@ DEFAULT_ARGS=(-c "v")
 #
  PACK_BASE_FILES="
    LICENSE
+   source/app_cfg.h
+   source/wl_serve.c
+   source/wl_serve.h
    source/shell/wl_shell.c
    source/shell/wl_shell.h
    source/shell/app_cfg.h
