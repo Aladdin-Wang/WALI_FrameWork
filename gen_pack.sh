@@ -37,8 +37,19 @@ DEFAULT_ARGS=(-c "v")
 #
  PACK_BASE_FILES="
    LICENSE
+   source/shell/wl_shell.c
+   source/shell/wl_shell.h
+   source/shell/app_cfg.h
+   source/msg_map/wl_msg_check_arg.c
+   source/msg_map/wl_msg_check_arg.h
+   source/msg_map/wl_msg_check_str.c
+   source/msg_map/wl_msg_check_str.h
+   source/msg_map/wl_msg_map.c
+   source/msg_map/wl_msg_map.h
+   source/msg_map/app_cfg.h
    source/signals_slots/wl_signals_slots.c
    source/signals_slots/wl_signals_slots.h
+   source/signals_slots/app_cfg.h
    README.md
  "
 
