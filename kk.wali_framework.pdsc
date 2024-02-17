@@ -1,49 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<package schemaVersion="1.7.28" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.28/schema/PACK.xsd">
+
+<package schemaVersion="1.7.28" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="PACK.xsd">
   <vendor>kk</vendor>
   <name>wali_framework</name>
-  <description>A signal and slot module implemented in C language.</description>
-  <url>https://github.com/Aladdin-Wang/WALI_FrameWork/</url>
-  <supportContact>https://github.com/Aladdin-Wang/WALI_FrameWork/issues</supportContact>
+  <description>wali_framework Software Components</description>
+  <url>https://www.rt-thread.org/download/mdk/</url>
+  <supportContact>https://www.rt-thread.org</supportContact>
+
   <license>LICENSE</license>
-
-  <!-- optional license file -->
-  <!-- <license></license> -->
-
-  <repository type="git">https://github.com/Aladdin-Wang/WALI_FrameWork.git</repository>
-
+  
   <releases>
-    <!--automatically generated content, please do not modify -->
+      <!--automatically generated content, please do not modify -->
     <release version="9.9.9" tag="9.9.9">
       Active development ...
     </release>
-    <!-- automatically generated content, please do not modify -->
-    <release date="2024-02-13" version="0.9.0" tag="0.9.0" >
-      Initial release of signals_slots.
-    </release>	
+    <release date="2024-02-17" version="0.9.0"  tag="0.9.0">
+      Updated to 0.9.0
+    </release>
   </releases>
 
   <keywords>
     <!-- keywords for indexing -->
-    <keyword>signals slots</keyword>
-    <keyword>C Language</keyword>
-    <keyword>Data Structures</keyword>
+    <keyword>rt-thread</keyword>
+    <keyword>rtthread</keyword>
+    <keyword>rtt</keyword>
   </keywords>
+  
+  <!-- apis section (optional - for Application Programming Interface descriptions) -->
+  <!-- 
+  <apis>
+  </apis>
+  -->
 
-  <!-- \brief Enable RTOS Patch for perf_counter -->
+  <!-- boards section (mandatory for Board Support Packs) -->
+  <!-- 
+  <boards>
+  </boards>
+  -->
+
+  <!-- devices section (mandatory for Device Family Packs) -->
+  <!--
+  <devices>
+  </devices>
+  -->
+  
+  <conditions> 
+    <condition id="ARM Compiler">
+		<description>Arm Compiler 5 (armcc) or Arm Compiler 6 (armclang).</description>
+		<accept Tcompiler="ARMCC" Toptions="AC6"/>
+		<accept Tcompiler="ARMCC" Toptions="AC6LTO"/>
+		<accept Tcompiler="ARMCC" Toptions="AC5"/>
+    </condition>
+	<condition id="Arm GCC">
+		<description>GNU Tools for Arm Embedded Processors.</description>
+		<accept Tcompiler="GCC"/>
+    </condition>
+	<condition id="Armv8-M Processors">
+		<accept  Dcore="ARMV8MBL"/>
+		<accept  Dcore="ARMV8MML"/>
+		<accept  Dcore="ARMV81MML"/>
+		<accept  Dcore="Star-MC1"/>
+		<accept  Dcore="Cortex-M23"/>
+		<accept  Dcore="Cortex-M33"/>
+		<accept  Dcore="Cortex-M35P"/>
+		<accept  Dcore="Cortex-M55"/>
+		<accept  Dcore="Cortex-M85"/>
+	</condition>
+
+	<condition id="Previous Generation Cortex-M Processors">
+		<accept  Dcore="Cortex-M0"/>
+		<accept  Dcore="Cortex-M0+"/>
+		<accept  Dcore="Cortex-M1"/>
+		<accept  Dcore="Cortex-M3"/>
+		<accept  Dcore="Cortex-M4"/>
+		<accept  Dcore="Cortex-M7"/>
+		<accept  Dcore="SC000"/>
+		<accept  Dcore="SC300"/>
+	</condition>
+
+	<condition id="Cortex-M Processors">
+		<description>Support All Cortex-M based processors</description>
+		<accept condition="Previous Generation Cortex-M Processors"/>
+		<accept condition="Armv8-M Processors"/>
+	</condition>
+	
+	<condition id="Cortex-M Arm GCC">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm GCC"/>
+		<require condition="Cortex-M Processors"/>
+	</condition>
+	<condition id="Cortex-M Arm Compiler">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm Compiler"/>
+		<require condition="Cortex-M Processors"/>
+	</condition>
+	
+	<condition id="Previous Generation Cortex-M Arm Compiler">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm Compiler"/>
+		<require condition="Previous Generation Cortex-M Processors"/>
+	</condition>
+	
+	<condition id="Armv8-M Arm Compiler">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm Compiler"/>
+		<require condition="Armv8-M Processors"/>
+	</condition>
+	
+	<condition id="Cortex-M Arm GCC CMSIS-CORE">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm GCC"/>
+		<require condition="Cortex-M Processors"/>
+		<require condition="CMSIS-CORE"/>
+	</condition>
+	<condition id="Cortex-M Arm Compiler CMSIS-CORE">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm Compiler"/>
+		<require condition="Cortex-M Processors"/>
+		<require condition="CMSIS-CORE"/>
+	</condition>
+	
+	<condition id="Previous Generation Cortex-M Arm Compiler CMSIS-CORE">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm Compiler"/>
+		<require condition="Previous Generation Cortex-M Processors"/>
+		<require condition="CMSIS-CORE"/>
+	</condition>
+	<condition id="Armv8-M Arm Compiler CMSIS-CORE">
+		<description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+		<require condition="Arm Compiler"/>
+		<require condition="Armv8-M Processors"/>
+		<require condition="CMSIS-CORE"/>
+	</condition>
+
+    <condition id="shell">
+      <description>wali finsh</description>
+    </condition>
+    <condition id="device">
+      <description>rt-thread device</description>
+    </condition>
+  </conditions>
+  
   <components>
-    <!-- signals_slots 组件 -->
-    <component Cclass="FrameWork" Cversion="0.9.0" Csub="signals_slots" isDefaultVariant="false" Cgroup="wali_framework" >
-      <description>A signal and slot module implemented in C language.</description>
-      <files>
-        <file category="header" name="source/signals_slots/wl_signals_slots.h"/>
-        <file category="sourceC" name="source/signals_slots/wl_signals_slots.c"/>
-      </files>
+    <bundle Cbundle="wali_framework" Cclass="framework" Cversion="0.9.0">
+    <description>wali_framework</description>
+    <doc></doc>
+    <component Cgroup="kernel" condition="CMSIS-CORE">
+        <description>rt-thread kernel files</description>
+        <files>
+            <file category="include" name="source/"/>
+            <file category="header" name="source/app_cfg.h" attr="config" version="0.9.0"/>
+            <file category="source" name="source/wl_serve.c" attr="config" version="0.9.0"/>
+
+            <file category="source" name="source/msg_map/wl_msg_check_arg.c"/>
+            <file category="source" name="source/msg_map/wl_msg_check_str.c"/>
+            <file category="source" name="source/msg_map/wl_msg_map.c"/>         
+        </files>
     </component>
+    
+    <component Cgroup="shell" condition="shell">
+        <description>rt-thread finsh</description>
+        <files>
+            <file category="source" name="source/shell/wl_shell.c"/>         
+        </files>
+    </component>
+
+    <component Cgroup="device" condition="device">
+        <description>rt-thread device</description>
+        <files>
+            <file category="source" name="components/device/device.c"/>
+        </files>
+    </component>
+    
+    </bundle>
   </components>
 
+  
   <!-- optional taxonomy section for defining new component Class and Group names -->
+  <!--
   <taxonomy>
-    <description Cclass="FrameWork" Cgroup="wali_framework" doc="documents/Doxygen/html/index.html">A signal and slot module implemented in C language.</description>
   </taxonomy>
+  -->
+  
 </package>
