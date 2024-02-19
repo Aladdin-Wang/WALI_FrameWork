@@ -1,4 +1,4 @@
-#include "flash_blob.h"
+#include "../wl_flash_blob.h"
 #include "STM32_FLASH_DEV.c"
 /*
  *  Initialize Flash Programming Functions

@@ -20,9 +20,6 @@
 
 /*============================ INCLUDES ======================================*/
 #include "./app_cfg.h"
-#include "./queue/wl_queue.h"
-#include "./msg_map/wl_msg_map.h"
-#include "./subscribe_publish/wl_subscribe_publish_agent.h"
 #include "./shell/wl_shell.h"
 #include "./logging/wl_log.h"
 #include "./flash_blob/wl_flash_blob.h"

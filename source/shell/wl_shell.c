@@ -20,7 +20,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
-#include "./subscribe_publish/wl_subscribe_publish_agent.h"
 #undef this
 #define this        (*ptThis)
 

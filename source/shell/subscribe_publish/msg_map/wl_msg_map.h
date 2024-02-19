@@ -15,38 +15,53 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef __SERVE_MSG_CHECK_ARG_H_
-#define __SERVE_MSG_CHECK_ARG_H_
-#include "./app_cfg.h"
+#ifndef __SERVE_MSG_MAP_H_
+#define __SERVE_MSG_MAP_H_
+#include "./wl_msg_map_cfg.h"
 #if defined(WL_USING_MSG_MAP)
-#include "../Serve/fsm/simple_fsm.h"
+#include "wl_msg_check_str.h"
+#include "wl_msg_check_arg.h"
+#include "../../../Generic/queue/wl_queue.h"
+#include "../../../fsm/simple_fsm.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
-declare_simple_fsm(check_arg);
-extern_fsm_implementation(check_arg);
-extern_fsm_initialiser( check_arg,
+
+#define __section(x)               __attribute__((section(x)))
+#define __used                     __attribute__((used))
+
+
+/********************************************************************************************/
+typedef struct _msg_t msg_t;
+typedef fsm_rt_t msg_hanlder_t(int argc, char **argv);
+struct _msg_t{
+    const char *pchMessage;
+    msg_hanlder_t *fnHandler;
+    const char *pchDesc;
+};
+
+declare_simple_fsm(search_msg_map);
+extern_fsm_implementation(search_msg_map);
+extern_fsm_initialiser( search_msg_map,
         args(
-            const char *pchString,
-            bool (*fnGetBytes)(fsm(check_arg) *ptObj,uint8_t *pchByte,uint16_t hwLength),
-            int32_t *argc,
-            char **argv,
-			bool bArgIsString
+		    msg_t *ptMsgTableBase,
+		    msg_t *ptMsgTableLimit,
+		    byte_queue_t *ptQueue,
+		    bool bArgIsString
         ))
-/*! fsm used to output specified string */
-extern_simple_fsm(check_arg,
+extern_simple_fsm(search_msg_map,
     def_params(
-            const char *pchStr;
-            uint16_t hwIndex;
-            int16_t hwCount;
-            uint8_t chByte;
-			bool bArgIsString;
-            bool (*fnGetBytes)(fsm(check_arg) *ptObj,uint8_t *pchByte,uint16_t hwLength);
-            uint8_t chArgNums;
-            int16_t chArgLen;
-            char chArgs[MSG_ARG_LEN];
-            int32_t *argc;           
-            char **argv;
+			fsm(check_string)  fsmCheckStr;
+			fsm(check_arg)     fsmCheckArg;
+			msg_t              *ptMsgTableBase;
+			msg_t              *ptMsgTableLimit;	
+            uint8_t            chByte;            
+			uint16_t           hwIndex;
+            byte_queue_t       *ptQueue;
+			bool               bArgIsString;
+			bool               bIsRequestDrop;
+			char               *argv[MSG_ARG_MAX];
+			int                argc;
     )
 )
 
@@ -54,4 +69,6 @@ extern_simple_fsm(check_arg,
 }
 #endif
 #endif
-#endif 
+#endif /* MSG_MAP_MSG_MAP_H_ */
+
+

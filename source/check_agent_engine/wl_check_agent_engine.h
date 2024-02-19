@@ -19,8 +19,8 @@
 #define __SERVE_CHECK_AGENT_ENGINE_H_
 #include "./app_cfg.h"
 #if USE_SERVICE_CHECK_USE_PEEK == ENABLED
-#include "./queue/wl_queue.h"
-#include "./fsm/simple_fsm.h"
+#include "../Generic/queue/wl_queue.h"
+#include "../fsm/simple_fsm.h"
 
 #ifdef __cplusplus
 extern "C" {

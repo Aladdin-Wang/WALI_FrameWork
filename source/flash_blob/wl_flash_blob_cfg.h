@@ -17,7 +17,7 @@
 
 #ifndef _FLASH_BLOB_CFG_H_
 #define _FLASH_BLOB_CFG_H_
-#include "flash_blob.h"
+#include "./wl_flash_blob.h"
 /* ===================== Flash device Configuration ========================= */
 extern const  flash_blob_t  onchip_flash_device;
 /* flash device table */

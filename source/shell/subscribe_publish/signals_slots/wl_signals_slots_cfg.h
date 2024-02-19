@@ -1,8 +1,8 @@
 //! \note do not move this pre-processor statement to other places
-#include "..\generic_cfg.h"
+#include "..\wl_subscribe_publish_agent_cfg.h"
 
-#ifndef __QUEUE_APP_CFG_H__
-#define __QUEUE_APP_CFG_H__
+#ifndef __SIGNALS_SLOTS_CFG_H__
+#define __SIGNALS_SLOTS_CFG_H__
 
 /*============================ INCLUDES ======================================*/
 /*============================ MACROS ========================================*/
@@ -11,7 +11,7 @@
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
- 
+
 
 #endif
 /* EOF */

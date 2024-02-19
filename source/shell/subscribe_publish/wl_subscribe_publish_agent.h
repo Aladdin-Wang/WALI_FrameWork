@@ -17,11 +17,11 @@
 
 #ifndef __SERVE_SUBSCRIBE_AND_PUBLISH_H_
 #define __SERVE_SUBSCRIBE_AND_PUBLISH_H_
-#include ".\app_cfg.h"
+#include "./wl_subscribe_publish_agent_cfg.h"
 #if defined(WL_USING_SUBSCRIBE_PUBLISH)
 #include "./msg_map/wl_msg_map.h"
 #include "./signals_slots/wl_signals_slots.h"
-#include "./check_agent_engine/wl_check_agent_engine.h"
+#include "../.././check_agent_engine/wl_check_agent_engine.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -42,17 +42,20 @@ DEFAULT_ARGS=(-c "v")
    source/wl_serve.h
    source/shell/wl_shell.c
    source/shell/wl_shell.h
-   source/shell/app_cfg.h
-   source/IPC/shell/msg_map/wl_msg_check_arg.c
-   source/IPC/shell/msg_map/wl_msg_check_arg.h
-   source/IPC/shell/msg_map/wl_msg_check_str.c
-   source/IPC/shell/msg_map/wl_msg_check_str.h
-   source/IPC/shell/msg_map/wl_msg_map.c
-   source/IPC/shell/msg_map/wl_msg_map.h
-   source/IPC/shell/msg_map/wl_msg_map_cfg.h
-   source/IPC/subscribe_publish/signals_slots/wl_signals_slots.c
-   source/IPC/subscribe_publish/signals_slots/wl_signals_slots.h
-   source/IPC/subscribe_publish/signals_slots/app_cfg.h
+   source/shell/wl_shell_cfg.h
+   source/shell/subscribe_publish/msg_map/wl_msg_check_arg.c
+   source/shell/subscribe_publish/msg_map/wl_msg_check_arg.h
+   source/shell/subscribe_publish/msg_map/wl_msg_check_str.c
+   source/shell/subscribe_publish/msg_map/wl_msg_check_str.h
+   source/shell/subscribe_publish/msg_map/wl_msg_map.c
+   source/shell/subscribe_publish/msg_map/wl_msg_map.h
+   source/shell/subscribe_publish/msg_map/wl_msg_map_cfg.h
+   source/shell/subscribe_publish/signals_slots/wl_signals_slots.c
+   source/shell/subscribe_publish/signals_slots/wl_signals_slots.h
+   source/shell/subscribe_publish/signals_slots/wl_signals_slots_cfg.h
+   source/shell/subscribe_publish/wl_subscribe_publish_agent.c
+   source/shell/subscribe_publish/wl_subscribe_publish_agent.h
+   source/shell/subscribe_publish/wl_subscribe_publish_agent_cfg.h   
    README.md
  "
 

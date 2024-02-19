@@ -1,4 +1,4 @@
-#include "flash_blob.h" 
+#include "../wl_flash_blob.h"
 
 #ifdef STM32F10x_16
 #include "stm32f1xx_hal.h"

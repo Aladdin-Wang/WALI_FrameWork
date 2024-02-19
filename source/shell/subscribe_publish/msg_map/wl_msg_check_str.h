@@ -15,60 +15,34 @@
 *                                                                           *
 ****************************************************************************/
 
-#ifndef __SERVE_MSG_MAP_H_
-#define __SERVE_MSG_MAP_H_
+#ifndef __SERVE_MSG_CHECK_STR_H_
+#define __SERVE_MSG_CHECK_STR_H_
 #include "./app_cfg.h"
 #if defined(WL_USING_MSG_MAP)
-#include "wl_msg_check_str.h"
-#include "wl_msg_check_arg.h"
-#include "../Serve/queue/wl_queue.h"
-#include "../fsm/simple_fsm.h"
+#include "../../.././fsm/simple_fsm.h"
+#include <string.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#define __section(x)               __attribute__((section(x)))
-#define __used                     __attribute__((used))
-
-
-/********************************************************************************************/
-typedef struct _msg_t msg_t;
-typedef fsm_rt_t msg_hanlder_t(int argc, char **argv);
-struct _msg_t{
-    const char *pchMessage;
-    msg_hanlder_t *fnHandler;
-    const char *pchDesc;
-};
-
-declare_simple_fsm(search_msg_map);
-extern_fsm_implementation(search_msg_map);
-extern_fsm_initialiser( search_msg_map,
+declare_simple_fsm(check_string);
+extern_fsm_implementation(check_string);
+extern_fsm_initialiser( check_string,
         args(
-		    msg_t *ptMsgTableBase,
-		    msg_t *ptMsgTableLimit,
-		    byte_queue_t *ptQueue,
-		    bool bArgIsString
+            const char *pchString,
+            bool (*fnGetChar)(fsm(check_string) *ptObj,uint8_t *pchByte)
         ))
-extern_simple_fsm(search_msg_map,
+/*! fsm used to output specified string */
+extern_simple_fsm(check_string,
     def_params(
-			fsm(check_string)  fsmCheckStr;
-			fsm(check_arg)     fsmCheckArg;
-			msg_t              *ptMsgTableBase;
-			msg_t              *ptMsgTableLimit;	
-            uint8_t            chByte;            
-			uint16_t           hwIndex;
-            byte_queue_t       *ptQueue;
-			bool               bArgIsString;
-			bool               bIsRequestDrop;
-			char               *argv[MSG_ARG_MAX];
-			int                argc;
+            const char *pchStr;
+            uint16_t hwIndex;
+            uint8_t  chByte;
+            bool (*fnGetChar)(fsm(check_string) *ptObj,uint8_t *pchByte);
     )
 )
 
 #ifdef __cplusplus
 }
 #endif
-#endif
-#endif /* MSG_MAP_MSG_MAP_H_ */
-
-
+#endif 
+#endif 
