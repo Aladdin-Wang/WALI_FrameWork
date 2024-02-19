@@ -1,8 +1,8 @@
 //! \note do not move this pre-processor statement to other places
 #include "..\app_cfg.h"
 
-#ifndef __MODBUS_APP_CFG_H__
-#define __MODBUS_APP_CFG_H__
+#ifndef __SUBSCRIBE_PUBLISH_CFG_H__
+#define __SUBSCRIBE_PUBLISH_CFG_H__
 
 /*============================ INCLUDES ======================================*/
 /*============================ MACROS ========================================*/
@@ -11,7 +11,6 @@
 /*============================ GLOBAL VARIABLES ==============================*/
 /*============================ LOCAL VARIABLES ===============================*/
 /*============================ PROTOTYPES ====================================*/
- 
 
 #endif
 /* EOF */

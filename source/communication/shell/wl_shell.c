@@ -16,6 +16,7 @@
 ****************************************************************************/
 
 #include "wl_shell.h"
+#include "../subscribe_publish/wl_subscribe_publish_agent.h"
 #if defined(WL_USING_SHELL)
 #include <stdio.h>
 #include <string.h>

@@ -17,9 +17,9 @@
 
 #ifndef __SERVE_SHELL_H_
 #define __SERVE_SHELL_H_
-#include "./wl_shell_cfg.h"
+#include "./app_cfg.h"
 #if defined(WL_USING_SHELL)
-#include "./subscribe_publish/wl_subscribe_publish_agent.h"
+#include "../msg_map/wl_msg_map.h"
 
 /**
  * @ingroup msh

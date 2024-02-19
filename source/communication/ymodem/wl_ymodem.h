@@ -25,7 +25,7 @@
 #include <stdbool.h>
 
 /* Includes FSM (Finite State Machine) library header for state management */
-#include "../.././fsm/simple_fsm.h"
+#include "../../fsm/simple_fsm.h"
 
 /* C++ compatibility for C headers */
 #ifdef __cplusplus

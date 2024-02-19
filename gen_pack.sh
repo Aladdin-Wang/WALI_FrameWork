@@ -36,26 +36,7 @@ DEFAULT_ARGS=(-c "v")
 # Default: empty
 #
  PACK_BASE_FILES="
-   LICENSE
-   source/app_cfg.h
-   source/wl_serve.c
-   source/wl_serve.h
-   source/shell/wl_shell.c
-   source/shell/wl_shell.h
-   source/shell/wl_shell_cfg.h
-   source/shell/subscribe_publish/msg_map/wl_msg_check_arg.c
-   source/shell/subscribe_publish/msg_map/wl_msg_check_arg.h
-   source/shell/subscribe_publish/msg_map/wl_msg_check_str.c
-   source/shell/subscribe_publish/msg_map/wl_msg_check_str.h
-   source/shell/subscribe_publish/msg_map/wl_msg_map.c
-   source/shell/subscribe_publish/msg_map/wl_msg_map.h
-   source/shell/subscribe_publish/msg_map/wl_msg_map_cfg.h
-   source/shell/subscribe_publish/signals_slots/wl_signals_slots.c
-   source/shell/subscribe_publish/signals_slots/wl_signals_slots.h
-   source/shell/subscribe_publish/signals_slots/wl_signals_slots_cfg.h
-   source/shell/subscribe_publish/wl_subscribe_publish_agent.c
-   source/shell/subscribe_publish/wl_subscribe_publish_agent.h
-   source/shell/subscribe_publish/wl_subscribe_publish_agent_cfg.h   
+   LICENSE  
    README.md
  "
 
