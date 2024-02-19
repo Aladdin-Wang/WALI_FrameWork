@@ -21,7 +21,7 @@
 #if defined(WL_USING_MSG_MAP)
 #include "wl_msg_check_str.h"
 #include "wl_msg_check_arg.h"
-#include "../../../Generic/queue/wl_queue.h"
+#include "../../../generic/queue/wl_queue.h"
 #include "../../../fsm/simple_fsm.h"
 #ifdef __cplusplus
 extern "C" {
