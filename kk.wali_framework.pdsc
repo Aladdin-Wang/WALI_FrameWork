@@ -41,6 +41,7 @@
         <file category="source" name="source/wl_serve.c" attr="config" version="1.0.1"/>
         <file category="header" name="source/shell/wl_shell.h"/>
 		
+        <file category="sourceC" name="source/bootloader/bootloader.c"/>		
         <file category="sourceC" name="source/shell/subscribe_publish/msg_map/wl_msg_check_arg.c"/>
         <file category="sourceC" name="source/shell/subscribe_publish/msg_map/wl_msg_check_str.c"/>
         <file category="sourceC" name="source/shell/subscribe_publish/msg_map/wl_msg_map.c"/>
