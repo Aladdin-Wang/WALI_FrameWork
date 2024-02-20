@@ -24,8 +24,8 @@
 #undef this
 #define this        (*ptThis)
 
-extern const int FSymTab$$Base;
-extern const int FSymTab$$Limit;
+extern const int FMshTab$$Base;
+extern const int FMshTab$$Limit;
 
 static void shell_push_history(wl_shell_t *ptObj);
 
@@ -65,7 +65,6 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                 s_tInputStat = WAIT_FUNC_KEY;
                 continue;
             }
-
             s_tInputStat = WAIT_NORMAL;
         } else if(s_tInputStat == WAIT_FUNC_KEY) {
             s_tInputStat = WAIT_NORMAL;
@@ -77,7 +76,6 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                     this.hwCurrenthistory = 0;
                     continue;
                 }
-
                 this.hwLinePosition = strlen(this.cHistoryCmdBuf[this.hwCurrenthistory]);
                 this.hwLineLen = this.hwLinePosition;
                 memcpy(this.chLineBuf, this.cHistoryCmdBuf[this.hwCurrenthistory], MSG_ARG_LEN);
@@ -92,7 +90,6 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                     else
                         continue;
                 }
-
                 this.hwLinePosition = strlen(this.cHistoryCmdBuf[this.hwCurrenthistory]);
                 this.hwLineLen = this.hwLinePosition;
                 memcpy(this.chLineBuf, this.cHistoryCmdBuf[this.hwCurrenthistory], MSG_ARG_LEN);
@@ -105,7 +102,6 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                     this.hwLinePosition --;
                 }
             }
-
             continue;
         } else {
             s_tInputStat = WAIT_NORMAL;
@@ -118,7 +114,6 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                 enqueue(&this.tByteInQueue, this.chLineBuf, this.hwLinePosition );
                 publish(&ptObj->tShellSubPub, __MSG_TOPIC(shell_topic));
             }
-
             memset(this.chLineBuf, 0, sizeof(this.chLineBuf));
             this.hwLinePosition = 0;
         } else if(pchData[i] == 0x7f || pchData[i] == 0x08 ) { /* handle backspace key */
@@ -178,11 +173,9 @@ void wl_shell_echo(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                 s_tInputStat = WAIT_FUNC_KEY;
                 continue;
             }
-
             s_tInputStat = WAIT_NORMAL;
         } else if(s_tInputStat == WAIT_FUNC_KEY) {
             s_tInputStat = WAIT_NORMAL;
-
             if(pchData[i] == 0x41) {
                 if(strlen(this.chLineBuf) > 0) {
                     printf("\033[2K\rkk@wl_shell >%s", this.chLineBuf);
@@ -201,12 +194,10 @@ void wl_shell_echo(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                     printf("\b");
                 }
             }
-
             continue;
         } else {
             s_tInputStat = WAIT_NORMAL;
         }
-
         if (pchData[i] == '\r' || pchData[i]  == '\n') {
             this.hwCurposPosition = 0;
             printf("\r\nkk@wl_shell >");
@@ -247,9 +238,8 @@ wl_shell_t *wl_shell_init(wl_shell_t *ptObj)
     assert(NULL != ptObj);
 
     this.bEchoMode = SHELL_OPTION_ECHO;
-
     queue_init(&this.tByteInQueue, this.chQueueBuf, sizeof(this.chQueueBuf), true);
-    init_fsm(search_msg_map, &this.fsmSearchMsgMap, args((msg_t *)&FSymTab$$Base, (msg_t *)&FSymTab$$Limit, &this.tByteInQueue, true));
+    init_fsm(search_msg_map, &this.fsmSearchMsgMap, args((msg_t *)&FMshTab$$Base, (msg_t *)&FMshTab$$Limit, &this.tByteInQueue, true));
     wl_subscribe_publish_init(&ptObj->tShellSubPub);
     subscribe(&ptObj->tShellSubPub, __MSG_TOPIC(shell_topic), &this, SLOT(wl_shell_exec));
     subscribe(&ptObj->tShellSubPub, __MSG_TOPIC(echo_topic), &this, SLOT(wl_shell_echo));
@@ -294,15 +284,12 @@ static void shell_push_history(wl_shell_t *ptObj)
             if (memcmp(&this.cHistoryCmdBuf[SHELL_HISTORY_LINES - 1], this.chLineBuf, MSG_ARG_LEN)) {
                 /* move history */
                 int index;
-
                 for (index = 0; index < SHELL_HISTORY_LINES - 1; index ++) {
                     memcpy(&this.cHistoryCmdBuf[index][0],
                            &this.cHistoryCmdBuf[index + 1][0], MSG_ARG_LEN);
                 }
-
                 memset(&this.cHistoryCmdBuf[index][0], 0, MSG_ARG_LEN);
                 memcpy(&this.cHistoryCmdBuf[index][0], this.chLineBuf, this.hwLinePosition);
-
                 /* it's the maximum history */
                 this.hwHistoryCount = SHELL_HISTORY_LINES;
             }
@@ -325,9 +312,8 @@ static int msh_help(int argc, char **argv)
 {
     printf("\r\nshell commands:\r\n");
     {
-        msg_t *ptMsgTableBase = (msg_t *)&FSymTab$$Base;
-        msg_t *ptMsgTableLimit = (msg_t *)&FSymTab$$Limit;
-
+        msg_t *ptMsgTableBase = (msg_t *)&FMshTab$$Base;
+        msg_t *ptMsgTableLimit = (msg_t *)&FMshTab$$Limit;
         for (uint32_t i = 0; &ptMsgTableBase[i] != ptMsgTableLimit; i++) {
             printf("%-16s - %s\r\n", ptMsgTableBase[i].pchMessage, ptMsgTableBase[i].pchDesc);
         }
