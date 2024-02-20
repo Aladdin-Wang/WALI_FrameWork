@@ -35,30 +35,31 @@
     <!-- signals_slots 组件 -->
     <component Cclass="FrameWork" Cversion="1.0.1" Cgroup="wali_framework" >
       <description>A signal and slot module implemented in C language.</description>
-      <files>
-	    <file category="include" name="source/"/>
-        <file category="header" name="source/app_cfg.h" attr="config" version="1.0.1"/>
-        <file category="source" name="source/wl_serve.c" attr="config" version="1.0.1"/>
-        <file category="header" name="source/wl_serve.h" attr="config" version="1.0.1"/>
+	<files>
+		<file category="include" name="source/"/>
+		<file category="header" name="source/app_cfg.h" attr="config" version="1.0.1"/>
+		<file category="source" name="source/wl_serve.c" attr="config" version="1.0.1"/>
+		<file category="header" name="source/wl_serve.h" attr="config" version="1.0.1"/>
+		
 		<!-- 添加一个选项框，当用户勾选时才添加 bootloader 文件 -->
 		<option name="bootloader" selected="false"/>
 		<file category="sourceC" name="source/bootloader/bootloader.c" condition="option('bootloader')"/>
-			
-        <file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>	
-        <file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DEV.c"/>		
-        <file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DRV.c"/>	
 		
-        <file category="sourceC" name="source/generic/queue/wl_queue.c"/>	
-        <file category="sourceC" name="source/check_agent_engine/wl_check_agent_engine.c"/>		
-        <file category="sourceC" name="source/communication/msg_map/wl_msg_check_arg.c"/>
-        <file category="sourceC" name="source/communication/msg_map/wl_msg_check_str.c"/>
-        <file category="sourceC" name="source/communication/msg_map/wl_msg_map.c"/>
-        <file category="sourceC" name="source/communication/signals_slots/wl_signals_slots.c"/>
-        <file category="sourceC" name="source/communication/subscribe_publish/wl_subscribe_publish.c"/>
-        <file category="sourceC" name="source/communication/shell/wl_shell.c"/>	
-        <file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>		
-			
-      </files>
+		<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
+		<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DEV.c"/>        
+		<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DRV.c"/>    
+		
+		<file category="sourceC" name="source/generic/queue/wl_queue.c"/>    
+		<file category="sourceC" name="source/check_agent_engine/wl_check_agent_engine.c"/>        
+		<file category="sourceC" name="source/communication/msg_map/wl_msg_check_arg.c"/>
+		<file category="sourceC" name="source/communication/msg_map/wl_msg_check_str.c"/>
+		<file category="sourceC" name="source/communication/msg_map/wl_msg_map.c"/>
+		<file category="sourceC" name="source/communication/signals_slots/wl_signals_slots.c"/>
+		<file category="sourceC" name="source/communication/subscribe_publish/wl_subscribe_publish.c"/>
+		<file category="sourceC" name="source/communication/shell/wl_shell.c"/>    
+		<file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>        
+	</files>
+
     </component>
 	
   </components>
