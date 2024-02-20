@@ -76,16 +76,24 @@
             <description>Require CMSIS-CORE Support</description>
             <require Cclass="CMSIS" Cgroup="CORE"/>
         </condition>
-        
-		<condition id="boot">
-		  <description>wl-framework bootloader</description>
+		
+		<condition id="FlashDrv">
+		  <description>wl_framework flash drive</description>
+		</condition>  
+		
+		<condition id="Bootloader">
+		  <description>wl_framework bootloader</description>
+		  <require Cclass="FrameWork" Cgroup="wali_framework" Csub="FlashDrv"/>
 		</condition>
-        
+		
         <condition id="Cortex-M Arm GCC">
             <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
             <require condition="Arm GCC"/>
             <require condition="Cortex-M Processors"/>
         </condition>
+
+
+		
         <condition id="Cortex-M Arm Compiler">
             <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
             <require condition="Arm Compiler"/>
@@ -130,7 +138,6 @@
             <require condition="CMSIS-CORE"/>
         </condition>
         
-        
     </conditions>  
   <components>
     <!-- signals_slots 组件 -->
@@ -141,10 +148,7 @@
 			<file category="header" name="source/app_cfg.h" attr="config" version="1.0.1"/>
 			<file category="source" name="source/wl_serve.c" attr="config" version="1.0.1"/>
 			<file category="header" name="source/wl_serve.h" attr="config" version="1.0.1"/>
-			<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
-			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DEV.c"/>        
-			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DRV.c"/>    
-			
+  
 			<file category="sourceC" name="source/generic/queue/wl_queue.c"/>    
 			<file category="sourceC" name="source/check_agent_engine/wl_check_agent_engine.c"/>        
 			<file category="sourceC" name="source/communication/msg_map/wl_msg_check_arg.c"/>
@@ -156,12 +160,21 @@
 			<file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>        
 		</files>
     </component>
-    <component Cclass="FrameWork" Cversion="1.0.1" Csub="boot" Cgroup="wali_framework" condition="boot">
-        <description>bootloader</description>
+    <component Cclass="FrameWork" Cversion="1.0.1" Csub="FlashDrv" Cgroup="wali_framework" condition="FlashDrv">
+        <description>wl-framework flash drive</description>
+        <files>
+			<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
+			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DEV.c"/>        
+			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DRV.c"/> 
+        </files>
+    </component>	
+    <component Cclass="FrameWork" Cversion="1.0.1" Csub="Bootloader" Cgroup="wali_framework" condition="Bootloader">
+        <description>wl_framework bootloader</description>
         <files>
             <file category="sourceC" name="source/bootloader/bootloader.c"/>
         </files>
     </component>	
+	
   </components>
 
   <!-- optional taxonomy section for defining new component Class and Group names -->
