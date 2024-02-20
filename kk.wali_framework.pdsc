@@ -3,7 +3,7 @@
 <package schemaVersion="1.7.28" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="https://raw.githubusercontent.com/Open-CMSIS-Pack/Open-CMSIS-Pack-Spec/v1.7.28/schema/PACK.xsd">
   <vendor>kk</vendor>
   <name>wali_framework</name>
-  <description>A signal and slot module implemented in C language.</description>
+  <description>A software framework that provides the necessary software infrastructure, services, and macros to support some high-level abstract concepts.</description>
   <url>https://github.com/Aladdin-Wang/WALI_FrameWork/</url>
   <supportContact>https://github.com/Aladdin-Wang/WALI_FrameWork/issues</supportContact>
   <license>LICENSE</license>
@@ -19,7 +19,7 @@
       Active development ...
     </release>
     <!-- automatically generated content, please do not modify -->
-    <release date="2024-02-17" version="1.0.1" tag="1.0.1" >
+    <release date="2024-02-20" version="0.9.0" tag="0.9.0" >
       Initial release.
     </release>			
   </releases>
@@ -140,13 +140,13 @@
     </conditions>  
   <components>
     <!-- signals_slots 组件 -->
-    <component Cclass="FrameWork" Cversion="1.0.1" Csub="Core" Cgroup="wali_framework" >
+    <component Cclass="FrameWork" Cversion="0.9.0" Csub="Core" Cgroup="wali_framework" >
       <description>A signal and slot module implemented in C language.</description>
 		<files>
 			<file category="include" name="source/"/>
-			<file category="header" name="source/app_cfg.h" attr="config" version="1.0.1"/>
-			<file category="source" name="source/wl_serve.c" attr="config" version="1.0.1"/>
-			<file category="header" name="source/wl_serve.h" attr="config" version="1.0.1"/>
+			<file category="header" name="source/app_cfg.h" attr="config" version="0.9.0"/>
+			<file category="source" name="source/wl_serve.c" attr="config" version="0.9.0"/>
+			<file category="header" name="source/wl_serve.h" attr="config" version="0.9.0"/>
   
 			<file category="sourceC" name="source/generic/queue/wl_queue.c"/>    
 			<file category="sourceC" name="source/check_agent_engine/wl_check_agent_engine.c"/>        
@@ -159,7 +159,7 @@
 			<file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>        
 		</files>
     </component>
-    <component Cclass="FrameWork" Cversion="1.0.1" Csub="FlashDrv" Cgroup="wali_framework" Cvariant="STM32"  condition="FlashDrv">
+    <component Cclass="FrameWork" Cversion="0.9.0" Csub="FlashDrv" Cgroup="wali_framework" Cvariant="STM32"  condition="FlashDrv">
         <description>wl_framework flash drive</description>
         <files>
 			<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
@@ -167,7 +167,7 @@
 			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DRV.c"/> 
         </files>
     </component>
-    <component Cclass="FrameWork" Cversion="1.0.1" Csub="FlashDrv" Cgroup="wali_framework" Cvariant="GD32"  condition="FlashDrv">
+    <component Cclass="FrameWork" Cversion="0.9.0" Csub="FlashDrv" Cgroup="wali_framework" Cvariant="GD32"  condition="FlashDrv">
         <description>wl_framework flash drive</description>
         <files>
 			<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
@@ -175,7 +175,7 @@
 			<file category="sourceC" name="source/flash_blob/flash/GD32_FLASH_DRV.c"/> 
         </files>
     </component>	
-    <component Cclass="FrameWork" Cversion="1.0.1" Csub="Bootloader" Cgroup="wali_framework" condition="Bootloader">
+    <component Cclass="FrameWork" Cversion="0.9.0" Csub="Bootloader" Cgroup="wali_framework" condition="Bootloader">
         <description>wl_framework bootloader</description>
         <files>
             <file category="sourceC" name="source/bootloader/bootloader.c"/>
@@ -186,7 +186,7 @@
 
   <!-- optional taxonomy section for defining new component Class and Group names -->
   <taxonomy>
-    <description Cclass="FrameWork" Cgroup="wali_framework" doc="documents/Doxygen/html/index.html">A signal and slot module implemented in C language.</description>
+    <description Cclass="FrameWork" Cgroup="wali_framework" doc="documents/Doxygen/html/index.html">A software framework that provides the necessary software infrastructure, services, and macros to support some high-level abstract concepts.</description>
   </taxonomy>
 </package>
 
