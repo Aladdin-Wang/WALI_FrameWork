@@ -41,7 +41,7 @@
 #endif
 // <q>Use echo mode
 // <i> FINSH_OPTION_ECHO=0x01 is echo mode, other values are none-echo mode.
-#define SHELL_OPTION_ECHO                             0
+#define SHELL_OPTION_ECHO                             1
 // <o>The maximum number of history lines <0-16>
 //  <i>Default: 8
 #define SHELL_HISTORY_LINES                           5

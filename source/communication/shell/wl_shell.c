@@ -16,7 +16,7 @@
 ****************************************************************************/
 
 #include "wl_shell.h"
-#include "../subscribe_publish/wl_subscribe_publish_agent.h"
+
 #if defined(WL_USING_SHELL)
 #include <stdio.h>
 #include <string.h>
@@ -26,10 +26,6 @@
 
 extern const int FSymTab$$Base;
 extern const int FSymTab$$Limit;
-extern wl_subscribe_publish_t    tShellSubPub;
-
-def_topic(&tShellSubPub, shell_topic);
-def_topic(&tShellSubPub, echo_topic, uint8_t*, uint16_t);
 
 static void shell_push_history(wl_shell_t *ptObj);
 
@@ -42,7 +38,7 @@ static void shell_push_history(wl_shell_t *ptObj);
  */
 void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
 {
-    wl_shell_t *(ptThis) = ptObj;
+    wl_shell_t *(ptThis) = (wl_shell_t *)ptObj;
     assert(NULL != ptObj);
     /*
     * handle control key
@@ -120,7 +116,7 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
                 shell_push_history(ptObj);
                 this.chLineBuf[this.hwLinePosition++] = pchData[i];
                 enqueue(&this.tByteInQueue, this.chLineBuf, this.hwLinePosition );
-                publish(&tShellSubPub, __MSG_TOPIC(shell_topic));
+                publish(&ptObj->tShellSubPub, __MSG_TOPIC(shell_topic));
             }
 
             memset(this.chLineBuf, 0, sizeof(this.chLineBuf));
@@ -142,22 +138,11 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
     }
 
     if(this.bEchoMode != false) {
-        publish(&tShellSubPub, __MSG_TOPIC(echo_topic), pchData, hwLength);
+        publish(&ptObj->tShellSubPub, __MSG_TOPIC(echo_topic), pchData, hwLength);
     }
 }
 
-/**
- * @brief Execute shell commands
- *
- * @param ptObj Pointer to the wl_shell_t object
- */
-void wl_shell_exec(wl_shell_t *ptObj)
-{
-    wl_shell_t *(ptThis) = ptObj;
-    assert(NULL != ptObj);
 
-    while(call_fsm( search_msg_map,  &this.fsmSearchMsgMap ) != fsm_rt_cpl);
-}
 
 /**
  * @brief Echo shell input
@@ -240,6 +225,19 @@ void wl_shell_echo(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
 }
 
 /**
+ * @brief Execute shell commands
+ *
+ * @param ptObj Pointer to the wl_shell_t object
+ */
+void wl_shell_exec(wl_shell_t *ptObj)
+{
+    wl_shell_t *(ptThis) = ptObj;
+    assert(NULL != ptObj);
+
+    while(call_fsm( search_msg_map,  &this.fsmSearchMsgMap ) != fsm_rt_cpl);
+}
+
+/**
  * @brief Initialize the shell
  *
  * @param ptObj Pointer to the wl_shell_t object
@@ -254,12 +252,12 @@ wl_shell_t *wl_shell_init(wl_shell_t *ptObj)
 
     queue_init(&this.tByteInQueue, this.chQueueBuf, sizeof(this.chQueueBuf), true);
     init_fsm(search_msg_map, &this.fsmSearchMsgMap, args((msg_t *)&FSymTab$$Base, (msg_t *)&FSymTab$$Limit, &this.tByteInQueue, true));
-
-    subscribe(&tShellSubPub, __MSG_TOPIC(shell_topic), &this, SLOT(wl_shell_exec));
-    subscribe(&tShellSubPub, __MSG_TOPIC(echo_topic), &this, SLOT(wl_shell_echo));
-
+    wl_subscribe_publish_init(&ptObj->tShellSubPub);
+    subscribe(&ptObj->tShellSubPub, __MSG_TOPIC(shell_topic), &this, SLOT(wl_shell_exec));
+    subscribe(&ptObj->tShellSubPub, __MSG_TOPIC(echo_topic), &this, SLOT(wl_shell_echo));
     return ptObj;
 }
+
 
 /**
  * @brief get echo mode

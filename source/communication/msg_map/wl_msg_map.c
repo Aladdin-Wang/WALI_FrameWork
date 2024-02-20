@@ -77,7 +77,6 @@ fsm_implementation(search_msg_map)
                     fsm_on_going();
                 }
             }
-
             fsm_cpl();
         } else {
             init_fsm(check_string, &(this.fsmCheckStr), args((const char *)(this.ptMsgTableBase[this.hwIndex].pchMessage), check_string_get_char));
