@@ -19,7 +19,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "../flash_blob/wl_flash_blob.h"
-#include "user_data.h"
+
 #if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
 /* Avoids the semihosting issue */
 __asm("  .global __ARM_use_no_argv\n");
