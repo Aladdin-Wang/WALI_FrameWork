@@ -142,8 +142,6 @@ void  wl_shell_read(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
     }
 }
 
-
-
 /**
  * @brief Echo shell input
  *
@@ -187,11 +185,11 @@ void wl_shell_echo(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
 
             if(pchData[i] == 0x41) {
                 if(strlen(this.chLineBuf) > 0) {
-                    printf("\033[2K\r-_- %s", this.chLineBuf);
+                    printf("\033[2K\rkk@wl_shell >%s", this.chLineBuf);
                 }
             } else if(pchData[i] == 0x42) {
                 if(strlen(this.chLineBuf) > 0) {
-                    printf("\033[2K\r-_- %s", this.chLineBuf);
+                    printf("\033[2K\rkk@wl_shell >%s", this.chLineBuf);
                 }
             } else if(pchData[i] == 0x43) {
                 if(this.hwCurposPosition < this.hwLineLen) {
@@ -211,7 +209,7 @@ void wl_shell_echo(wl_shell_t *ptObj, uint8_t *pchData, uint16_t hwLength)
 
         if (pchData[i] == '\r' || pchData[i]  == '\n') {
             this.hwCurposPosition = 0;
-            printf("\r\n-_- ");
+            printf("\r\nkk@wl_shell >");
         } else if(pchData[i] == 0x7f || pchData[i] == 0x08 ) { /* handle backspace key */
             if(this.hwCurposPosition != 0) {
                 this.hwCurposPosition--;

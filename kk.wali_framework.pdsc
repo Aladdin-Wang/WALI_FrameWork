@@ -46,7 +46,7 @@
         <file category="sourceC" name="source/communication/msg_map/wl_msg_check_str.c"/>
         <file category="sourceC" name="source/communication/msg_map/wl_msg_map.c"/>
         <file category="sourceC" name="source/communication/signals_slots/wl_signals_slots.c"/>
-        <file category="sourceC" name="source/communication/subscribe_publish/wl_subscribe_publish_agent.c"/>
+        <file category="sourceC" name="source/communication/subscribe_publish/wl_subscribe_publish.c"/>
         <file category="sourceC" name="source/communication/shell/wl_shell.c"/>	
         <file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>	
         <file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>	
