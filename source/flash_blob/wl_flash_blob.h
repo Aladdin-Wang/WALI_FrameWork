@@ -96,7 +96,6 @@ typedef struct {
     int32_t (*Read)(uint32_t adr, uint32_t sz, uint8_t* buf);
 } flash_ops_t;
 
-typedef struct flash_blob_t flash_blob_t;
 typedef struct flash_blob_t{
     flash_dev_t const *ptFlashDev;
     flash_ops_t tFlashops;

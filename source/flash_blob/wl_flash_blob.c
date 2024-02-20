@@ -15,7 +15,6 @@
 *                                                                           *
 ****************************************************************************/
 #include "wl_flash_blob.h"
-#include "wl_flash_blob_cfg.h"
 /* Array containing flash devices and their configurations */
 static const flash_blob_t * const flash_table[] = FLASH_DEV_TABLE;
 
