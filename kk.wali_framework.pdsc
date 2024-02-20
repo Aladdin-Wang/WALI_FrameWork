@@ -30,21 +30,117 @@
     <keyword>C Language</keyword>
     <keyword>Data Structures</keyword>
   </keywords>
-  
+    <conditions> 
+        <condition id="Arm Compiler">
+            <description>Arm Compiler 5 (armcc) or Arm Compiler 6 (armclang).</description>
+            <accept Tcompiler="ARMCC" Toptions="AC6"/>
+            <accept Tcompiler="ARMCC" Toptions="AC6LTO"/>
+            <accept Tcompiler="ARMCC" Toptions="AC5"/>
+        </condition>
+        <condition id="Arm GCC">
+            <description>GNU Tools for Arm Embedded Processors.</description>
+            <accept Tcompiler="GCC"/>
+        </condition>
+
+        
+        <condition id="Armv8-M Processors">
+            <accept  Dcore="ARMV8MBL"/>
+            <accept  Dcore="ARMV8MML"/>
+            <accept  Dcore="ARMV81MML"/>
+            <accept  Dcore="Star-MC1"/>
+            <accept  Dcore="Cortex-M23"/>
+            <accept  Dcore="Cortex-M33"/>
+            <accept  Dcore="Cortex-M35P"/>
+            <accept  Dcore="Cortex-M55"/>
+            <accept  Dcore="Cortex-M85"/>
+        </condition>
+
+        <condition id="Previous Generation Cortex-M Processors">
+            <accept  Dcore="Cortex-M0"/>
+            <accept  Dcore="Cortex-M0+"/>
+            <accept  Dcore="Cortex-M1"/>
+            <accept  Dcore="Cortex-M3"/>
+            <accept  Dcore="Cortex-M4"/>
+            <accept  Dcore="Cortex-M7"/>
+            <accept  Dcore="SC000"/>
+            <accept  Dcore="SC300"/>
+        </condition>
+
+        <condition id="Cortex-M Processors">
+            <description>Support All Cortex-M based processors</description>
+            <accept condition="Previous Generation Cortex-M Processors"/>
+            <accept condition="Armv8-M Processors"/>
+        </condition>
+
+        <condition id="CMSIS-CORE">
+            <description>Require CMSIS-CORE Support</description>
+            <require Cclass="CMSIS" Cgroup="CORE"/>
+        </condition>
+        
+		<condition id="boot">
+		  <description>wl-framework bootloader</description>
+		</condition>
+        
+        <condition id="Cortex-M Arm GCC">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm GCC"/>
+            <require condition="Cortex-M Processors"/>
+        </condition>
+        <condition id="Cortex-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Cortex-M Processors"/>
+        </condition>
+        
+        <condition id="Previous Generation Cortex-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Previous Generation Cortex-M Processors"/>
+        </condition>
+        
+        <condition id="Armv8-M Arm Compiler">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Armv8-M Processors"/>
+        </condition>
+        
+        <condition id="Cortex-M Arm GCC CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm GCC"/>
+            <require condition="Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        <condition id="Cortex-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        
+        <condition id="Previous Generation Cortex-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Previous Generation Cortex-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        <condition id="Armv8-M Arm Compiler CMSIS-CORE">
+            <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
+            <require condition="Arm Compiler"/>
+            <require condition="Armv8-M Processors"/>
+            <require condition="CMSIS-CORE"/>
+        </condition>
+        
+        
+    </conditions>  
   <components>
     <!-- signals_slots 组件 -->
-    <component Cclass="FrameWork" Cversion="1.0.1" Cgroup="wali_framework" >
+    <component Cclass="FrameWork" Cversion="1.0.1" Csub="Core">
       <description>A signal and slot module implemented in C language.</description>
 		<files>
 			<file category="include" name="source/"/>
 			<file category="header" name="source/app_cfg.h" attr="config" version="1.0.1"/>
 			<file category="source" name="source/wl_serve.c" attr="config" version="1.0.1"/>
 			<file category="header" name="source/wl_serve.h" attr="config" version="1.0.1"/>
-			
-			<!-- 添加一个条件，当条件为真时才添加 bootloader 文件 -->
-			<condition name="bootloader" value="false"/>
-			<file category="sourceC" name="source/bootloader/bootloader.c" condition="condition('bootloader')"/>
-			
 			<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
 			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DEV.c"/>        
 			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DRV.c"/>    
@@ -60,7 +156,12 @@
 			<file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>        
 		</files>
     </component>
-	
+    <component Cclass="FrameWork" Cversion="1.0.1" Csub="boot" condition="boot">
+        <description>bootloader</description>
+        <files>
+            <file category="sourceC" name="source/bootloader/bootloader.c"/>
+        </files>
+    </component>	
   </components>
 
   <!-- optional taxonomy section for defining new component Class and Group names -->
