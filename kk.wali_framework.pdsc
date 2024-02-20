@@ -75,15 +75,16 @@
         <condition id="CMSIS-CORE">
             <description>Require CMSIS-CORE Support</description>
             <require Cclass="CMSIS" Cgroup="CORE"/>
-        </condition>
-		
+        </condition>	 
+
 		<condition id="FlashDrv">
 		  <description>wl_framework flash drive</description>
-		</condition>  
+		</condition> 
 		
 		<condition id="Bootloader">
 		  <description>wl_framework bootloader</description>
 		  <require Cclass="FrameWork" Cgroup="wali_framework" Csub="FlashDrv"/>
+		  <require Cclass="FrameWork" Cgroup="wali_framework" Csub="Core"/>		  
 		</condition>
 		
         <condition id="Cortex-M Arm GCC">
@@ -92,8 +93,6 @@
             <require condition="Cortex-M Processors"/>
         </condition>
 
-
-		
         <condition id="Cortex-M Arm Compiler">
             <description>Compile Cortex-M Processors with GNU Tools for Arm Embedded Processors.</description>
             <require condition="Arm Compiler"/>
