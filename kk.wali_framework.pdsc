@@ -160,12 +160,20 @@
 			<file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>        
 		</files>
     </component>
-    <component Cclass="FrameWork" Cversion="1.0.1" Csub="FlashDrv" Cgroup="wali_framework" condition="FlashDrv">
-        <description>wl-framework flash drive</description>
+    <component Cclass="FrameWork" Cversion="1.0.1" Csub="FlashDrv" Cgroup="wali_framework" Cvariant="STM32"  condition="FlashDrv">
+        <description>wl_framework flash drive</description>
         <files>
 			<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
 			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DEV.c"/>        
 			<file category="sourceC" name="source/flash_blob/flash/STM32_FLASH_DRV.c"/> 
+        </files>
+    </component>
+    <component Cclass="FrameWork" Cversion="1.0.1" Csub="FlashDrv" Cgroup="wali_framework" Cvariant="GD32"  condition="FlashDrv">
+        <description>wl_framework flash drive</description>
+        <files>
+			<file category="sourceC" name="source/flash_blob/wl_flash_blob.c"/>    
+			<file category="sourceC" name="source/flash_blob/flash/GD32_FLASH_DEV.c"/>        
+			<file category="sourceC" name="source/flash_blob/flash/GD32_FLASH_DRV.c"/> 
         </files>
     </component>	
     <component Cclass="FrameWork" Cversion="1.0.1" Csub="Bootloader" Cgroup="wali_framework" condition="Bootloader">
