@@ -1,5 +1,5 @@
 //! \note do not move this pre-processor statement to other places
-#include "app_cfg.h"
+#include "../app_cfg.h"
 
 #ifndef __CHECK_USE_PEEK_APP_CFG_H__
 #define __CHECK_USE_PEEK_APP_CFG_H__

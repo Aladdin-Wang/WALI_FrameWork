@@ -1,5 +1,5 @@
 /* WALI Serve config file */
-
+#include "app_cfg.h"
 #ifndef __WL_SERVE_CFG_H__
 #define __WL_SERVE_CFG_H__
 // <<< Use Configuration Wizard in Context Menu >>>
