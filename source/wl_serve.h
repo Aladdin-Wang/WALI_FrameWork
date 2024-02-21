@@ -20,6 +20,7 @@
 
 /*============================ INCLUDES ======================================*/
 #include "./app_cfg.h"
+#include "./check_agent_engine/wl_check_agent_engine.h"
 #include "./communication/shell/wl_shell.h"
 #include "./communication/subscribe_publish/wl_subscribe_publish.h"
 #include "./communication/logging/wl_log.h"

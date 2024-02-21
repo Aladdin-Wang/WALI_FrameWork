@@ -1,5 +1,5 @@
 //! \note do not move this pre-processor statement to other places
-#include "..\app_cfg.h"
+#include "app_cfg.h"
 
 #ifndef __TIMER_APP_CFG_H__
 #define __TIMER_APP_CFG_H__
