@@ -2,7 +2,7 @@
 
 #ifndef __WL_SERVE_CFG_H__
 #define __WL_SERVE_CFG_H__
-
+#include "app_cfg.h"
 // <<< Use Configuration Wizard in Context Menu >>>
 
 // <h>Debug Configuration
