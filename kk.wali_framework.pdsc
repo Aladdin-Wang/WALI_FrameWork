@@ -144,7 +144,7 @@
       <description>A signal and slot module implemented in C language.</description>
 		<files>
 			<file category="include" name="source/"/>
-			<file category="header" name="source/app_cfg.h" attr="config" version="0.9.0"/>
+			<file category="header" name="template/wl_cfg.h" attr="config" version="0.9.0"/>
 			<file category="source" name="source/wl_serve.c" attr="config" version="0.9.0"/>
 			<file category="header" name="source/wl_serve.h" attr="config" version="0.9.0"/>
   
