@@ -158,6 +158,9 @@
 			<file category="sourceC" name="source/communication/shell/wl_shell.c"/>    
 			<file category="sourceC" name="source/communication/ymodem/wl_ymodem.c"/>        
 		</files>
+		 <Pre_Include_Global_h>
+#define __USER_APP_CFG_H__ "wl_user_app_cfg.h"
+         </Pre_Include_Global_h>
     </component>
     <component Cclass="FrameWork" Cversion="0.9.0" Csub="FlashDrv" Cgroup="wali_framework" Cvariant="STM32"  condition="FlashDrv">
         <description>wl_framework flash drive</description>
